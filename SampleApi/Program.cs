@@ -1,4 +1,6 @@
-using hoh.architecture.scafolding.Extensions;
+using hoh.architecture.CQRS.Query;
+using hoh.architecture.scaffolding.Extensions;
+using SampleApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHohArchitecture();
+
+builder.Services.AddTransient<IQueryHandler<TestQuery, bool>, TestQueryHandler>();
 
 var app = builder.Build();
 

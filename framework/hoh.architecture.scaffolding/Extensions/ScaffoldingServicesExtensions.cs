@@ -1,16 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using hoh.architecture.CQRS.Query;
 
-namespace hoh.architecture.scafolding.Extensions
+namespace hoh.architecture.scaffolding.Extensions
 {
-    public static class ScafoldingServicesExtensions
+    public static class ScaffoldingServicesExtensions
     {
         public static IServiceCollection AddHohArchitecture(this IServiceCollection services)
         {
+            services.AddTransient<IQueryExecutor, QueryExecutor>();
+
             //TODO will register services such as CQRS factories
             return services;
         }

@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace hoh.architecture.scafolding.Extensions
+namespace hoh.architecture.scaffolding.Extensions
 {
-    public static class ScafoldingBuilderExtensions
+    public static class ScaffoldingBuilderExtensions
     {
         public static IApplicationBuilder UseHohArchitecture(this IApplicationBuilder app)
         {

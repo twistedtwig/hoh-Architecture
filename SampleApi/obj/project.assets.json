@@ -10,14 +10,17 @@
           "hoh.architecture.CQRS": "1.0.0"
         },
         "compile": {
-          "lib/net7.0/hoh.architecture.scafolding.dll": {}
+          "lib/net7.0/hoh.architecture.scaffolding.dll": {}
         },
         "runtime": {
-          "lib/net7.0/hoh.architecture.scafolding.dll": {}
+          "lib/net7.0/hoh.architecture.scaffolding.dll": {}
         }
       },
       "hoh.architecture.CQRS/1.0.0": {
         "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
+        },
         "compile": {
           "lib/net7.0/hoh.architecture.CQRS.dll": {}
         },
@@ -236,18 +239,18 @@
   },
   "libraries": {
     "HOH.Architecture/1.0.0": {
-      "sha512": "N5WCpJ/e5jETlIGk5UeYtydse3bqacL/KCFWYxo4I/7BXvslyDCL1YBcOOIndpQEA+nnd0ajMQBxMz681CfQhA==",
+      "sha512": "ZyS63mXKXNI3ejsn6mOt180hZthflRUatJIIEXnAIbgHQ2EnT5WP5Ha+uQX1aPmumkF+QiPY9VDL5rm+biUP3Q==",
       "type": "package",
       "path": "hoh.architecture/1.0.0",
       "files": [
         ".nupkg.metadata",
         "hoh.architecture.1.0.0.nupkg.sha512",
         "hoh.architecture.nuspec",
-        "lib/net7.0/hoh.architecture.scafolding.dll"
+        "lib/net7.0/hoh.architecture.scaffolding.dll"
       ]
     },
     "hoh.architecture.CQRS/1.0.0": {
-      "sha512": "u2x73GLCT/wZ1XsWmQGCNfc1LIB7b/nexxu43d/DXkR/tYtlL6JABnl3i4AdIJc6wpFL396pNpcwR3sF1/q6Uw==",
+      "sha512": "snjApt7xenR1tuX2W2zb5kAYBbu7Ph71opByPE3MLtl3H9xt1wHktNBcTnyY3wfLnxb/1EHdL16QLmTUbRkoDw==",
       "type": "package",
       "path": "hoh.architecture.cqrs/1.0.0",
       "files": [

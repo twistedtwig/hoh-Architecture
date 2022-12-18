@@ -23,13 +23,16 @@
           "hoh.architecture.CQRS": "1.0.0"
         },
         "runtime": {
-          "lib/net7.0/hoh.architecture.scafolding.dll": {
+          "lib/net7.0/hoh.architecture.scaffolding.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         }
       },
       "hoh.architecture.CQRS/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
+        },
         "runtime": {
           "lib/net7.0/hoh.architecture.CQRS.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -127,14 +130,14 @@
     "HOH.Architecture/1.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-N5WCpJ/e5jETlIGk5UeYtydse3bqacL/KCFWYxo4I/7BXvslyDCL1YBcOOIndpQEA+nnd0ajMQBxMz681CfQhA==",
+      "sha512": "sha512-ZyS63mXKXNI3ejsn6mOt180hZthflRUatJIIEXnAIbgHQ2EnT5WP5Ha+uQX1aPmumkF+QiPY9VDL5rm+biUP3Q==",
       "path": "hoh.architecture/1.0.0",
       "hashPath": "hoh.architecture.1.0.0.nupkg.sha512"
     },
     "hoh.architecture.CQRS/1.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-u2x73GLCT/wZ1XsWmQGCNfc1LIB7b/nexxu43d/DXkR/tYtlL6JABnl3i4AdIJc6wpFL396pNpcwR3sF1/q6Uw==",
+      "sha512": "sha512-snjApt7xenR1tuX2W2zb5kAYBbu7Ph71opByPE3MLtl3H9xt1wHktNBcTnyY3wfLnxb/1EHdL16QLmTUbRkoDw==",
       "path": "hoh.architecture.cqrs/1.0.0",
       "hashPath": "hoh.architecture.cqrs.1.0.0.nupkg.sha512"
     },

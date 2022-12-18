@@ -5,7 +5,6 @@ C:\Work\Hoh-Architecture\SampleApi\bin\Debug\net7.0\SampleApi.deps.json
 C:\Work\Hoh-Architecture\SampleApi\bin\Debug\net7.0\SampleApi.runtimeconfig.json
 C:\Work\Hoh-Architecture\SampleApi\bin\Debug\net7.0\SampleApi.dll
 C:\Work\Hoh-Architecture\SampleApi\bin\Debug\net7.0\SampleApi.pdb
-C:\Work\Hoh-Architecture\SampleApi\bin\Debug\net7.0\hoh.architecture.scafolding.dll
 C:\Work\Hoh-Architecture\SampleApi\bin\Debug\net7.0\hoh.architecture.CQRS.dll
 C:\Work\Hoh-Architecture\SampleApi\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Work\Hoh-Architecture\SampleApi\bin\Debug\net7.0\Microsoft.OpenApi.dll
@@ -33,3 +32,4 @@ C:\Work\Hoh-Architecture\SampleApi\obj\Debug\net7.0\refint\SampleApi.dll
 C:\Work\Hoh-Architecture\SampleApi\obj\Debug\net7.0\SampleApi.pdb
 C:\Work\Hoh-Architecture\SampleApi\obj\Debug\net7.0\SampleApi.genruntimeconfig.cache
 C:\Work\Hoh-Architecture\SampleApi\obj\Debug\net7.0\ref\SampleApi.dll
+C:\Work\Hoh-Architecture\SampleApi\bin\Debug\net7.0\hoh.architecture.scaffolding.dll
