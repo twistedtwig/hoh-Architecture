@@ -1,0 +1,15 @@
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\bin\Debug\net7.0\hoh.architecture.scafolding.deps.json
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\bin\Debug\net7.0\hoh.architecture.scafolding.dll
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\bin\Debug\net7.0\hoh.architecture.scafolding.pdb
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\bin\Debug\net7.0\hoh.architecture.CQRS.dll
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\bin\Debug\net7.0\hoh.architecture.CQRS.pdb
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\obj\Debug\net7.0\hoh.architecture.scafolding.csproj.AssemblyReference.cache
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\obj\Debug\net7.0\hoh.architecture.scafolding.GeneratedMSBuildEditorConfig.editorconfig
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\obj\Debug\net7.0\hoh.architecture.scafolding.AssemblyInfoInputs.cache
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\obj\Debug\net7.0\hoh.architecture.scafolding.AssemblyInfo.cs
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\obj\Debug\net7.0\hoh.architecture.scafolding.csproj.CoreCompileInputs.cache
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\obj\Debug\net7.0\hoh.architecture.scafolding.csproj.CopyComplete
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\obj\Debug\net7.0\hoh.architecture.scafolding.dll
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\obj\Debug\net7.0\refint\hoh.architecture.scafolding.dll
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\obj\Debug\net7.0\hoh.architecture.scafolding.pdb
+C:\Work\Hoh-Architecture\framework\hoh.architecture.scafolding\obj\Debug\net7.0\ref\hoh.architecture.scafolding.dll

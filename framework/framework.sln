@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hoh.architecture.scafolding", "hoh.architecture.scafolding\hoh.architecture.scafolding.csproj", "{FDEC0B93-A0CA-4777-BF48-F49F5BB3E4D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hoh.architecture.CQRS", "hoh.architecture.CQRS\hoh.architecture.CQRS.csproj", "{645C84F5-DF60-4227-A09E-4FAFCA56DA1A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FDEC0B93-A0CA-4777-BF48-F49F5BB3E4D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDEC0B93-A0CA-4777-BF48-F49F5BB3E4D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDEC0B93-A0CA-4777-BF48-F49F5BB3E4D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDEC0B93-A0CA-4777-BF48-F49F5BB3E4D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{645C84F5-DF60-4227-A09E-4FAFCA56DA1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{645C84F5-DF60-4227-A09E-4FAFCA56DA1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{645C84F5-DF60-4227-A09E-4FAFCA56DA1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{645C84F5-DF60-4227-A09E-4FAFCA56DA1A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {915A31E5-2855-416F-922B-A017B73A24EA}
+	EndGlobalSection
+EndGlobal
