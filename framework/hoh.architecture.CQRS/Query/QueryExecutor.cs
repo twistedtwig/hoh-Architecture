@@ -1,5 +1,4 @@
 ﻿using hoh.architecture.CQRS.Shared.Results;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace hoh.architecture.CQRS.Query
 {
@@ -20,29 +19,28 @@ namespace hoh.architecture.CQRS.Query
              * saving query if required
              */
 
-            var handlerType = ConvertToQueryHandlerType<T>(query);
-            if (_serviceProvider.GetService(handlerType) is not IQueryHandler handler)
+            
+            if (query == null)
             {
-                var message = $"No Handler for query type '{query.GetType().Name}'";
-                return new QueryResult<T>(false, default(T), new ExceptionalMessage(message));
+                throw new ArgumentNullException(nameof(query));
             }
 
+            var queryType = query.GetType();
+            var handler = (QueryCreatorWrapper<T>)Activator.CreateInstance(typeof(QueryCreatorWrapperImpl<,>).MakeGenericType(queryType, typeof(T)));
 
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+
+            }
+           
             //TODO logging etc
-            
-            var rawResult = await handler.ExecuteAsync(query);
+
+            var result = await handler.HandleQuery(query, _serviceProvider);
 
             //TODO more logging
 
-            return (IQueryResult<T>) rawResult;
-        }
-
-        private Type ConvertToQueryHandlerType<T>(IQuery<T> qry)
-        {
-            var handlerType = typeof(IQueryHandler<,>);
-            var constructedHandler = handlerType.MakeGenericType(qry.GetType(), typeof(T));
-
-            return constructedHandler;
+            return result;
         }
     }
 }

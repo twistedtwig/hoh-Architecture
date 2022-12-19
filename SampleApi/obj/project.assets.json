@@ -239,7 +239,7 @@
   },
   "libraries": {
     "HOH.Architecture/1.0.0": {
-      "sha512": "ZyS63mXKXNI3ejsn6mOt180hZthflRUatJIIEXnAIbgHQ2EnT5WP5Ha+uQX1aPmumkF+QiPY9VDL5rm+biUP3Q==",
+      "sha512": "tRmdBkoXYAO28Zd2TmN3AjmlTZFN6fNxHlh40KQ4hzNrtH97/HqmZKGYjk2cg/lUq7tM09hYZgwtE2g+ZkhYqA==",
       "type": "package",
       "path": "hoh.architecture/1.0.0",
       "files": [
@@ -250,7 +250,7 @@
       ]
     },
     "hoh.architecture.CQRS/1.0.0": {
-      "sha512": "snjApt7xenR1tuX2W2zb5kAYBbu7Ph71opByPE3MLtl3H9xt1wHktNBcTnyY3wfLnxb/1EHdL16QLmTUbRkoDw==",
+      "sha512": "zHKTmEfKaS6VXVVM57jPUndY4pm0xZzHcXnLbCN07zSBbeSQYsTikV343A3UlVpmEzauMdsqjK3dvtos4V2BZA==",
       "type": "package",
       "path": "hoh.architecture.cqrs/1.0.0",
       "files": [

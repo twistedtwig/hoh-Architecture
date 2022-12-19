@@ -2,13 +2,7 @@
 
 namespace hoh.architecture.CQRS.Query
 {
-    public interface IQueryHandler
-    {
-        Task<object> ExecuteAsync(IQuery qry);
-    }
-
-    public interface IQueryHandler<in TQ, TR> : IQueryHandler
-        where TQ : IQuery<TR>
+    public interface IQueryHandler<in TQ, TR> where TQ : IQuery<TR>
     {
         Task<IQueryResult<TR>> ExecuteAsync(TQ query);
     }

@@ -1,12 +1,10 @@
-﻿using hoh.architecture.CQRS.Shared.Results;
-
-namespace hoh.architecture.CQRS.Query
+﻿namespace hoh.architecture.CQRS.Query
 {
-    public interface IQuery
+    public interface IBaseQuery
     {
     }
 
-    public interface IQuery<T> : IQuery
+    public interface IQuery<out T> : IBaseQuery
     {
     }
 }
