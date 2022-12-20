@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <PackageId>HOH.Architecture</PackageId>
+    <PackageId>HoH-Architecture</PackageId>
     <Title>HOH Architecture</Title>
     <Deterministic>false</Deterministic>
     <AssemblyVersion>1.0.0</AssemblyVersion>
@@ -13,6 +13,7 @@
     <Authors>Jon Hawkins</Authors>
     <Product>Hoh-Architecture</Product>
     <PackageProjectUrl>https://github.com/twistedtwig/hoh-Architecture</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/twistedtwig/hoh-Architecture</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

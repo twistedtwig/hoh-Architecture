@@ -5,6 +5,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageId>HoH-Architecture-CQRS</PackageId>
+    <Authors>Jon Hawkins</Authors>
+    <Product>HoH-Architecture-CQRS</Product>
+    <PackageProjectUrl>https://github.com/twistedtwig/hoh-Architecture</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/twistedtwig/hoh-Architecture</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
