@@ -10,6 +10,9 @@
     <Product>HoH-Architecture-CQRS</Product>
     <PackageProjectUrl>https://github.com/twistedtwig/hoh-Architecture</PackageProjectUrl>
     <RepositoryUrl>https://github.com/twistedtwig/hoh-Architecture</RepositoryUrl>
+    <Deterministic>false</Deterministic>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

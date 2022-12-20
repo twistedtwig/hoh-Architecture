@@ -9,7 +9,7 @@
     <Title>HOH Architecture</Title>
     <Deterministic>false</Deterministic>
     <AssemblyVersion>1.0.0</AssemblyVersion>
-    <Version>$(VersionPrefix)</Version>
+    <Version>1.0.0</Version>
     <Authors>Jon Hawkins</Authors>
     <Product>Hoh-Architecture</Product>
     <PackageProjectUrl>https://github.com/twistedtwig/hoh-Architecture</PackageProjectUrl>
