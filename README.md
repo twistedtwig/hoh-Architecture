@@ -15,7 +15,7 @@ All commands and queries can be automatically logged for future investigations.
 3. register the query and command handlers with the IServiceCollection
 
 ## Configuration
-There are various options that can be set at the top level via configuration, [framework\hoh.architecture.scaffolding\Configuration\CommandQueryLoggingType.cs](see CommandQueryLoggingType) for the configuration class
+There are various options that can be set at the top level via configuration, [see CommandQueryLoggingType](framework/hoh.architecture.scaffolding/Configuration/CommandQueryLoggingType.cs) for the configuration class
 
 The default values in the above class show what will be initially setup.  These can be overridden in a variety of ways
 
@@ -29,10 +29,9 @@ Or using appsettings.json
 ```
 builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSection("RootConfig"));
 ```
-Or you could provide (SampleApi\CustomConfigurationProvider\InMemoryTestCustomConfigurationProvider.cs)[another configuration provider]. These all chain together.  Be sure to call `AddHohArchitecture` first then provide any of your override methods. [SampleApi\Program.cs](see Program.cs) for examples.
+Or you could provide [another configuration provider](SampleApi/CustomConfigurationProvider/InMemoryTestCustomConfigurationProvider.cs). These all chain together.  Be sure to call `AddHohArchitecture` first then provide any of your override methods. [see Program.cs](SampleApi/Program.cs) for examples.
 
-C:\Work\Hoh-Architecture\framework\hoh.architecture.scaffolding\Configuration\HohArchitectureOptions.cs
-framework\hoh.architecture.scaffolding\Configuration\CommandQueryLoggingType.cs
+[CommandQueryLoggingType.cs](framework/hoh.architecture.scaffolding/Configuration/HohArchitectureOptions.cs)
 
 See SampleAPI => QueryController for an example of executing a query.  It follows this convention
 1. use IServiceProvider to get an instance of the IQueryExecutor.
