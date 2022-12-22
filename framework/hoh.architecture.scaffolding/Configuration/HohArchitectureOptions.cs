@@ -11,15 +11,13 @@
             {
                 TableName = "CommandsExecuted",
                 CommandLoggingConnectionString = "myConnectionString",
-                UseCustomerLogger = false,
-                UseInBuiltEfLogger = true,
+                Type = CommandQueryLoggingType.BuiltInEfProvider
             },
             QueryLogging = new QueryLoggingOptions()
             {
                 TableName = "QueriesExecuted",
                 QueryLoggingConnectionString = "myConnectionString",
-                UseCustomerLogger = false,
-                UseInBuiltEfLogger = true,
+                Type = CommandQueryLoggingType.None
             },
         };
     }

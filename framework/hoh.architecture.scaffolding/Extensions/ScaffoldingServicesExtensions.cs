@@ -23,7 +23,6 @@ namespace hoh.architecture.scaffolding.Extensions
             services.AddTransient<IQueryExecutor, QueryExecutor>();
 
             //TODO will register services such as CQRS factories
-            //TODO register blank query and command loggers
             //TODO register IRepository
 
             if (configureOptions != null)
@@ -45,40 +44,32 @@ namespace hoh.architecture.scaffolding.Extensions
         }
 
         private static void HandleQueryLogging(HohArchitectureOptions x)
-        {
-            if (x.QueryLogging.UseInBuiltEfLogger || x.QueryLogging.UseCustomerLogger)
+        {            
+            switch (x.QueryLogging.Type)
             {
-                //TODO unregister the blank query logger
-            }
-
-            if (x.QueryLogging.UseInBuiltEfLogger)
-            {
-                x.QueryLogging.UseCustomerLogger = false;
-
+                case CommandQueryLoggingType.None:
+                    //TODO register blank query and command loggers
+                    break;
+                case CommandQueryLoggingType.BuiltInEfProvider:
                 //TODO register ef logger
-            }
-            else if (x.QueryLogging.UseCustomerLogger)
-            {
-                x.QueryLogging.UseInBuiltEfLogger = false;
+                    break;
+                case CommandQueryLoggingType.Custom:
+                    break;
             }
         }
 
         private static void HandleCommandLogging(HohArchitectureOptions x)
         {
-            if (x.CommandLogging.UseInBuiltEfLogger || x.CommandLogging.UseCustomerLogger)
+            switch (x.CommandLogging.Type)
             {
-                //TODO unregister the blank command logger
-            }
-
-            if (x.CommandLogging.UseInBuiltEfLogger)
-            {
-                x.CommandLogging.UseCustomerLogger = false;
-
-                //TODO register ef logger
-            }
-            else if (x.CommandLogging.UseCustomerLogger)
-            {
-                x.CommandLogging.UseInBuiltEfLogger = false;
+                case CommandQueryLoggingType.None:
+                    //TODO register blank query and command loggers
+                    break;
+                case CommandQueryLoggingType.BuiltInEfProvider:
+                    //TODO register ef logger
+                    break;
+                case CommandQueryLoggingType.Custom:
+                    break;
             }
         }
     }

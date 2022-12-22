@@ -1,5 +1,7 @@
 using hoh.architecture.CQRS.Query;
+using hoh.architecture.scaffolding.Configuration;
 using hoh.architecture.scaffolding.Extensions;
+using SampleApi.CustomConfigurationProvider;
 using SampleApi.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +13,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHohArchitecture();
+// builder.Services.AddHohArchitecture();
+builder.Services.AddHohArchitecture(x =>
+{
+    x.CommandLogging.CommandLoggingConnectionString = "con1";
+    x.QueryLogging.QueryLoggingConnectionString = "con2";
+});
 
 builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSection("RootConfig"));
+builder.Configuration.Sources.Add(new InMemoryTestCustomConfigurationSource());
 
 builder.Services.AddTransient<IQueryHandler<TestQuery, string>, TestQueryHandler>();
 
