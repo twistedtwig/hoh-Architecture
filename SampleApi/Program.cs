@@ -13,6 +13,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHohArchitecture();
 
+builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSection("RootConfig"));
+
 builder.Services.AddTransient<IQueryHandler<TestQuery, string>, TestQueryHandler>();
 
 var app = builder.Build();
