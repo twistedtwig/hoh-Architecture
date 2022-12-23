@@ -7,12 +7,13 @@ The heart of the workflow is [CQRS](https://martinfowler.com/bliki/CQRS.html). E
 All commands and queries can be automatically logged for future investigations.
 
 ## Steps to setup an application
-1. add nuget package HOH.Architecture to the application
-2. In the setup add
-	a. `builder.Services.AddHohArchitecture();`
-	b. `app.UseHohArchitecture();`
-	c. Setup any configuration overrides, such as getting from config file (this must happen after `UseHohArchitecture`)
-3. register the query and command handlers with the IServiceCollection
+
+- add nuget package HOH.Architecture to the application
+- In the setup add
+	- `builder.Services.AddHohArchitecture();`
+	- `app.UseHohArchitecture();`
+	- Setup any configuration overrides, such as getting from config file (this must happen after `UseHohArchitecture`)
+- register the query and command handlers with the IServiceCollection
 
 ## Configuration
 There are various options that can be set at the top level via configuration, [see CommandQueryLoggingType](framework/hoh.architecture.scaffolding/Configuration/CommandQueryLoggingType.cs) for the configuration class
