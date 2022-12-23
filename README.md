@@ -6,7 +6,7 @@ The heart of the workflow is [CQRS](https://martinfowler.com/bliki/CQRS.html). E
 
 All commands and queries can be automatically logged for future investigations.
 
-## Steps to setup an application
+## Steps to setup an application / Quick start
 
 - add nuget package HOH.Architecture to the application
 - In the setup add
