@@ -13,7 +13,7 @@
                 CommandLoggingConnectionString = "myConnectionString",
                 Type = CommandQueryLoggingType.BuiltInEfProvider
             },
-            QueryLogging = new QueryLoggingOptions()
+            QueryLogging = new QueryLoggingOptions
             {
                 TableName = "QueriesExecuted",
                 QueryLoggingConnectionString = "myConnectionString",
