@@ -2,7 +2,7 @@
 
 namespace SampleApi.Queries
 {
-    public class TestQuery : IQuery<string>
+    public class TestQuery : IQuery
     {
         public string Message { get; set; }
 
