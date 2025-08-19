@@ -12,7 +12,7 @@ namespace hoh.architecture.CQRS.Query
             _queryCommandLocator = queryCommandLocator;
         }
 
-        public async Task<IQueryResult<TR>> ExecuteAsync<TQ, TR>(TQ query) where TQ : IQuery where TR : IQueryResult<TR>
+        public async Task<IQueryResult<TR>> ExecuteAsync<TQ, TR>(TQ query) where TQ : IQuery where TR : class
         {
             /*
              * locate query handler

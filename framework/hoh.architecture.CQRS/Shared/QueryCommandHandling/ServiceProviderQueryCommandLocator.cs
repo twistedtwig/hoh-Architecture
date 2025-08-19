@@ -1,5 +1,4 @@
 ﻿using hoh.architecture.CQRS.Query;
-using hoh.architecture.CQRS.Shared.Results;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -53,7 +52,7 @@ namespace hoh.architecture.CQRS.Shared.QueryCommandHandling
         //     return Task.FromResult(handler);
         // }
 
-        public Task<IQueryHandler<TQ, TR>> LocateQueryHandlerAsync<TQ, TR>() where TQ : IQuery where TR : IQueryResult<TR>
+        public Task<IQueryHandler<TQ, TR>> LocateQueryHandlerAsync<TQ, TR>() where TQ : IQuery where TR : class
         {
             var handler = _serviceProvider.GetRequiredService<IQueryHandler<TQ, TR>>();
             return Task.FromResult(handler);

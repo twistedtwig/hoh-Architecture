@@ -2,7 +2,7 @@
 
 namespace hoh.architecture.CQRS.Shared.Results
 {
-    public class QueryResult<T> : IQueryResult<T>
+    public class QueryResult<T> : IQueryResult<T> where T : class
     {
         public bool Success { get; }
         public IReadOnlyList<IMessage> Messages { get; }
