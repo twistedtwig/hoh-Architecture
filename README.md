@@ -40,3 +40,103 @@ See SampleAPI => QueryController for an example of executing a query.  It follow
 3. call ExecuteAsync on your IQueryExecutor instance.
 4. the handler for that query will be called, perform your business logic here.
 5. handle result.
+
+## Creating instances of Command and Query Handlers
+
+There are various ways to instantiate an instance:
+
+ 1) Manually register with the IServiceProvider:
+
+ `builder.Services.AddTransient<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();`
+
+Inject the IServiceProvider into the Controller and resolve the handler:
+
+```
+public class QueryController : ControllerBase
+{
+    private readonly IServiceProvider _serviceProvider;
+    
+    public QueryController(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
+    [HttpGet]
+    [Route("GetTestQuery")]
+    public async Task<IQueryResult<TestQueryResult>> GetTestQuery()
+    {
+        var query = new TestQuery("This is my message2");
+    
+        var queryHandler = _serviceProvider.GetService<IQueryHandler<TestQuery, TestQueryResult>>();
+    
+        var queryResult = await queryHandler.ExecuteAsync(query);
+    
+        return queryResult;
+    }
+}
+```
+
+
+ 2) Resolve with the IServiceProvider:
+
+ `builder.Services.AddTransient<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();`
+
+Inject the IQueryHandler into the Controller:
+
+```
+public class QueryController : ControllerBase
+{
+    private readonly IQueryHandler<TestQuery, TestQueryResult> _queryHandler;
+    
+    public QueryController(IQueryHandler<TestQuery, TestQueryResult> queryHandler)
+    {
+            _queryHandler = queryHandler;
+    }
+
+    [HttpGet]
+    [Route("GetTestQuery")]
+    public async Task<IQueryResult<TestQueryResult>> GetTestQuery()
+    {
+        var query = new TestQuery("This is my message2");
+        var queryResult = await _queryHandler.ExecuteAsync(query);
+        return queryResult;
+    }
+}
+```
+
+2) Register ServiceProviderQueryCommandLocator, which will intern use IServiceProvider
+
+```
+//TODO this should be in the AddHohArchitecture setup process.
+builder.Services.AddTransient<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
+builder.Services.AddTransient<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();
+```
+
+Inject the locator and resolve:
+
+```
+    public class QueryController : ControllerBase
+    {
+        private readonly IQueryCommandLocator _locator;
+
+        public QueryController(IQueryCommandLocator locator)
+        {
+            _locator = locator;
+        }
+
+        [HttpGet]
+        [Route("GetTestQueryInjected")]
+        public async Task<IQueryResult<TestQueryResult>> GetInjectedTestQuery()
+        {
+            var query = new TestQuery("This is my message3");
+
+            var queryHandler = await _locator.LocateQueryHandlerAsync<TestQuery, TestQueryResult>();
+            var queryResult = await queryHandler.ExecuteAsync(query);
+
+            return queryResult;
+        }
+    }
+}
+```
+
+3) Implement your own IQueryCommandLocator and inject as above. This can allow abstraction on resolving handlers, as well as using a different DI framework.

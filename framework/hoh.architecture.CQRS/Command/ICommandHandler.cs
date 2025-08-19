@@ -3,8 +3,8 @@ using hoh.architecture.CQRS.Shared.Results;
 
 namespace hoh.architecture.CQRS.Command
 {
-    public interface ICommandHandler<in TC> where TC : ICommand
+    public interface ICommandHandler<in TC, TR> where TC : ICommand where TR : ICommandResult
     {
-        Task<ICommandResult> ExecuteAsync(TC command);
+        Task<TR> ExecuteAsync(TC command);
     }
 }
