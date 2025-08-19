@@ -1,3 +1,20 @@
+# ROADMAP
+
+ - Query Executor. 
+     - logging
+     - execution time
+     - save query and time 
+ - add ICommandQueryLocator to setup `UseServiceProvider` 
+ - add function to setup to locate all commands and queries from assembly(s) with ServiceProvider
+ - add logging
+
+
+
+
+
+
+
+
 # hoh-Architecture
 
 This project is designed to provide a collection of nuget packages to streamline project development using CQRS, EF Core and some DDD principles.
