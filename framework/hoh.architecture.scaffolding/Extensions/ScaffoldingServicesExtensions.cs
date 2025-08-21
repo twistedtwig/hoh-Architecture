@@ -29,18 +29,25 @@ namespace hoh.architecture.scaffolding.Extensions
         public static IServiceCollection AddHohArchitecture(this IServiceCollection services, Action<HohArchitectureOptions>? configureOptions)
         {
             Console.WriteLine($"AddHohArchitecture start");
-            var defaultOptions = HohArchitectureOptions.Default;
-            configureOptions?.Invoke(defaultOptions);
+            var options = HohArchitectureOptions.Default;
+            configureOptions?.Invoke(options);
 
-            services.AddOptions<HohArchitectureOptions>().Configure(options =>
+            services.AddOptions<HohArchitectureOptions>().Configure(hohOptions =>
             {
-                Console.WriteLine($"1 config setup, use service {options.UseServiceCollection}, {options.CommandLogging.CommandLoggingConnectionString}");
-                options.UseServiceCollection = defaultOptions.UseServiceCollection;
-                options.CommandLogging = defaultOptions.CommandLogging;
-                options.QueryLogging = defaultOptions.QueryLogging;
+                Console.WriteLine($"1 config setup, use service {hohOptions.UseServiceCollection}, {hohOptions.CommandLogging.CommandLoggingConnectionString} {hohOptions.CommandLogging.TableName}");
+                hohOptions.UseServiceCollection = options.UseServiceCollection;
+                hohOptions.CommandLogging = options.CommandLogging;
+                hohOptions.QueryLogging = options.QueryLogging;
 
-                Console.WriteLine($"2 config setup, use service {options.UseServiceCollection}, {options.CommandLogging.CommandLoggingConnectionString}");
+                Console.WriteLine($"2 config setup, use service {hohOptions.UseServiceCollection}, {hohOptions.CommandLogging.CommandLoggingConnectionString} {hohOptions.CommandLogging.TableName}");
             });
+
+            if (options.UseServiceCollection)
+            {
+                Console.WriteLine("HandleRegisterServices");
+                services.AddScoped<IQueryCommandExecutor, QueryCommandExecutor>();
+                services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
+            }
 
             //TODO will register services such as CQRS factories
 
@@ -54,7 +61,7 @@ namespace hoh.architecture.scaffolding.Extensions
             services.PostConfigure<HohArchitectureOptions>(options =>
             {
                 Console.WriteLine("in post config setup area");
-                HandleRegisterServices(services, options);
+                //HandleRegisterServices(services, options);
                 HandleQueryLogging(options);
                 HandleCommandLogging(options);
             });
@@ -63,15 +70,15 @@ namespace hoh.architecture.scaffolding.Extensions
             return services;
         }
 
-        private static void HandleRegisterServices(IServiceCollection services, HohArchitectureOptions options)
-        {
-            if (options.UseServiceCollection)
-            {
-                Console.WriteLine("HandleRegisterServices");
-                services.AddScoped<IQueryCommandExecutor, QueryCommandExecutor>();
-                services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
-            }
-        }
+        //private static void HandleRegisterServices(IServiceCollection services, HohArchitectureOptions options)
+        //{
+        //    if (options.UseServiceCollection)
+        //    {
+        //        Console.WriteLine("HandleRegisterServices");
+        //        services.AddScoped<IQueryCommandExecutor, QueryCommandExecutor>();
+        //        services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
+        //    }
+        //}
 
         private static void HandleQueryLogging(HohArchitectureOptions options)
         {

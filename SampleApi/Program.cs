@@ -20,7 +20,7 @@ builder.Services.AddHohArchitecture(x =>
 {
     x.CommandLogging.CommandLoggingConnectionString = "con1";
     x.QueryLogging.QueryLoggingConnectionString = "con2";
-    x.UseServiceCollection = true;
+    x.UseServiceCollection = false;
 });
 
 builder.Configuration.Sources.Add(new InMemoryTestCustomConfigurationSource());
