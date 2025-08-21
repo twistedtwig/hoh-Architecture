@@ -11,16 +11,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//TODO want to load the HohArchitectureOptions configuration from the appsettings or web config
-//builder.Services.AddOptions().Configure<HohArchitectureOptions>(builder..GetSection("mySection"))
 builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSection("RootConfig"));
 
 // builder.Services.AddHohArchitecture();
 builder.Services.AddHohArchitecture(x =>
 {
+    Console.WriteLine($"-1 config setup, use service {x.UseServiceCollection}, {x.CommandLogging.CommandLoggingConnectionString} {x.CommandLogging.TableName}");
+
     x.CommandLogging.CommandLoggingConnectionString = "con1";
-    x.QueryLogging.QueryLoggingConnectionString = "con2";
-    x.UseServiceCollection = false;
+    x.QueryLogging.QueryLoggingConnectionString = "con3";
+    x.QueryLogging.TableName = "new table name";
+    x.UseServiceCollection = true;
 });
 
 builder.Configuration.Sources.Add(new InMemoryTestCustomConfigurationSource());
