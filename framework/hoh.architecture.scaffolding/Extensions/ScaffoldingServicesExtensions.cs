@@ -28,7 +28,7 @@ namespace hoh.architecture.scaffolding.Extensions
 
         public static IServiceCollection AddHohArchitecture(this IServiceCollection services, Action<HohArchitectureOptions>? configureOptions)
         {
-            Console.WriteLine($"AddHohArchitecture: {configureOptions = null}");
+            Console.WriteLine($"AddHohArchitecture start");
             var defaultOptions = HohArchitectureOptions.Default;
             configureOptions?.Invoke(defaultOptions);
 
@@ -49,6 +49,7 @@ namespace hoh.architecture.scaffolding.Extensions
 
             // services.Configure(configureOptions);
 
+            Console.WriteLine($"AddHohArchitecture after options");
             //once all config has been applied, ensure services are configured correctly
             services.PostConfigure<HohArchitectureOptions>(options =>
             {
@@ -58,6 +59,7 @@ namespace hoh.architecture.scaffolding.Extensions
                 HandleCommandLogging(options);
             });
 
+            Console.WriteLine($"AddHohArchitecture end");
             return services;
         }
 
