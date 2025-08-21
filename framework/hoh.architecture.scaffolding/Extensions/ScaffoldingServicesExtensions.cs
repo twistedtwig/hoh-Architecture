@@ -47,7 +47,7 @@ namespace hoh.architecture.scaffolding.Extensions
 
             //TODO register IRepository
 
-            // services.Configure(configureOptions);
+            services.Configure(configureOptions);
 
             Console.WriteLine($"AddHohArchitecture after options");
             //once all config has been applied, ensure services are configured correctly
