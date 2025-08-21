@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using hoh.architecture.CQRS.Query;
+﻿using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 using hoh.architecture.scaffolding.Configuration;
+using hoh.architecture.CQRS.Shared.QueryCommandHandling;
 
 namespace hoh.architecture.scaffolding.Extensions
 {
@@ -9,6 +10,20 @@ namespace hoh.architecture.scaffolding.Extensions
         public static IServiceCollection AddHohArchitecture(this IServiceCollection services)
         {
             return AddHohArchitecture(services, null);
+        }
+
+        public static IServiceCollection RegisterQueryHandlers(this IServiceCollection services, ServiceLifetime lifetime, params Assembly[] assemblies)
+        {
+            AssemblyHelpers.RegisterQueryHandlers(services, lifetime, assemblies);
+
+            return services;
+        }
+
+        public static IServiceCollection RegisterCommandHandlers(this IServiceCollection services, ServiceLifetime lifetime, params Assembly[] assemblies)
+        {
+            AssemblyHelpers.RegisterCommandHandlers(services, lifetime, assemblies);
+
+            return services;
         }
 
         public static IServiceCollection AddHohArchitecture(this IServiceCollection services, Action<HohArchitectureOptions>? configureOptions)
@@ -20,10 +35,12 @@ namespace hoh.architecture.scaffolding.Extensions
                 options.QueryLogging = defaultOptions.QueryLogging;
             });
 
-            services.AddTransient<IQueryExecutor, QueryExecutor>();
 
             //TODO will register services such as CQRS factories
+
+
             //TODO register IRepository
+
 
             if (configureOptions != null)
             {
@@ -31,11 +48,11 @@ namespace hoh.architecture.scaffolding.Extensions
                 services.Configure(configureOptions);
 
                 //once all config has been applied, ensure services are configured correctly
-                services.PostConfigure<HohArchitectureOptions>(x =>
+                services.PostConfigure<HohArchitectureOptions>(options =>
                 {
-                    HandleQueryLogging(x);
-
-                    HandleCommandLogging(x);
+                    HandleRegisterServices(services, options);
+                    HandleQueryLogging(options);
+                    HandleCommandLogging(options);
                 });
             }
             
@@ -43,9 +60,18 @@ namespace hoh.architecture.scaffolding.Extensions
             return services;
         }
 
-        private static void HandleQueryLogging(HohArchitectureOptions x)
+        private static void HandleRegisterServices(IServiceCollection services, HohArchitectureOptions options)
+        {
+            if (options.UseServiceCollection)
+            {
+                services.AddScoped<IQueryCommandExecutor, QueryCommandExecutor>();
+                services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
+            }
+        }
+
+        private static void HandleQueryLogging(HohArchitectureOptions options)
         {            
-            switch (x.QueryLogging.Type)
+            switch (options.QueryLogging.Type)
             {
                 case CommandQueryLoggingType.None:
                     //TODO register blank query and command loggers
@@ -58,9 +84,9 @@ namespace hoh.architecture.scaffolding.Extensions
             }
         }
 
-        private static void HandleCommandLogging(HohArchitectureOptions x)
+        private static void HandleCommandLogging(HohArchitectureOptions options)
         {
-            switch (x.CommandLogging.Type)
+            switch (options.CommandLogging.Type)
             {
                 case CommandQueryLoggingType.None:
                     //TODO register blank query and command loggers

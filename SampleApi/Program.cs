@@ -2,6 +2,7 @@ using hoh.architecture.CQRS.Query;
 using hoh.architecture.CQRS.Shared.QueryCommandHandling;
 using hoh.architecture.scaffolding.Configuration;
 using hoh.architecture.scaffolding.Extensions;
+using SampleApi;
 using SampleApi.CustomConfigurationProvider;
 using SampleApi.Queries;
 
@@ -24,10 +25,16 @@ builder.Services.AddHohArchitecture(x =>
 builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSection("RootConfig"));
 builder.Configuration.Sources.Add(new InMemoryTestCustomConfigurationSource());
 
-//TODO this should be in the AddHohArchitecture setup process.
-builder.Services.AddTransient<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
+////TODO this should be in the AddHohArchitecture setup process.
+//builder.Services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
 
-builder.Services.AddTransient<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();
+////TODO this should be in the AddHohArchitecture setup process.
+//builder.Services.AddScoped<IQueryExecutor, QueryExecutor>();
+
+//builder.Services.RegisterQueryHandlers(ServiceLifetime.Scoped, typeof(Program).Assembly);
+
+//builder.Services.AddScoped<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();
+//builder.Services.AddScoped<IQueryHandler<TestMathQuery, TestMathQueryResult>, TestMathQueryHandler>();
 
 var app = builder.Build();
 

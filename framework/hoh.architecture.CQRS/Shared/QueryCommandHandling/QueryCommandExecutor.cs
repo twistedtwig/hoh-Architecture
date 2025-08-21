@@ -1,13 +1,14 @@
-﻿using hoh.architecture.CQRS.Shared.QueryCommandHandling;
+﻿using hoh.architecture.CQRS.Command;
+using hoh.architecture.CQRS.Query;
 using hoh.architecture.CQRS.Shared.Results;
 
-namespace hoh.architecture.CQRS.Query
+namespace hoh.architecture.CQRS.Shared.QueryCommandHandling
 {
-    public class QueryExecutor : IQueryExecutor
+    public class QueryCommandExecutor : IQueryCommandExecutor
     {
         private readonly IQueryCommandLocator _queryCommandLocator;
 
-        public QueryExecutor(IQueryCommandLocator queryCommandLocator)
+        public QueryCommandExecutor(IQueryCommandLocator queryCommandLocator)
         {
             _queryCommandLocator = queryCommandLocator;
         }
@@ -45,6 +46,11 @@ namespace hoh.architecture.CQRS.Query
             //TODO more logging
 
             return result;
+        }
+
+        public Task<ICommandResult> ExecuteAsync<TC>(TC command) where TC : ICommand
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -7,7 +7,7 @@
  - add ICommandQueryLocator to setup `UseServiceProvider` 
  - add function to setup to locate all commands and queries from assembly(s) with ServiceProvider
  - add logging
-
+ - metadata logging. Allows systems to add data, such as user and place of caller
 
 
 
@@ -121,7 +121,7 @@ public class QueryController : ControllerBase
 }
 ```
 
-2) Register ServiceProviderQueryCommandLocator, which will intern use IServiceProvider
+3) Register ServiceProviderQueryCommandLocator, which will intern use IServiceProvider
 
 ```
 //TODO this should be in the AddHohArchitecture setup process.
@@ -156,4 +156,59 @@ Inject the locator and resolve:
 }
 ```
 
-3) Implement your own IQueryCommandLocator and inject as above. This can allow abstraction on resolving handlers, as well as using a different DI framework.
+4) Implement your own IQueryCommandLocator and inject as above. This can allow abstraction on resolving handlers, as well as using a different DI framework.
+
+
+## Command and Query logging and statistics
+
+If you simply want to resolve and execute a query or command, the above section will cover that. If you want to have a log:
+
+ - What commands and querys have been executed
+ - When they executed
+ - How long it took to run
+
+ You will need to use the IQueryCommandExcutor, as well as either use `ServiceProviderQueryCommandLocator` or implement your own version of `IQueryCommandLocator`.
+
+ ```
+ using hoh.architecture.CQRS.Query;
+using hoh.architecture.CQRS.Shared.QueryCommandHandling;
+using hoh.architecture.CQRS.Shared.Results;
+using Microsoft.AspNetCore.Mvc;
+using SampleApi.Queries;
+
+namespace SampleApi.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    public class QueryController : ControllerBase
+    {
+        private readonly IQueryExecutor _executor;
+
+        public QueryController(IQueryExecutor executor)
+        {
+            _executor = executor;
+        }
+
+        [HttpGet]
+        [Route("GetTestQueryExecutor")]
+        public async Task<IQueryResult<TestQueryResult>> GetExecutorTestQuery()
+        {
+            var query = new TestQuery("This is my message4");
+            return await _executor.ExecuteAsync<TestQuery, TestQueryResult>(query);
+        }
+    }
+}
+ ```
+
+ ## Using a different DI framework (not IServiceCollection)
+
+ - set AddHohArchitecture => options => UseServiceCollection to false
+ - Implement your own IQueryCommandLocator
+ - Add QueryCommandExecutor (IQueryCommandExecutor) to your DI.
+ - Register Command and Query handlers in your DI.
+
+## Using IServiceCollection
+
+ - set AddHohArchitecture => options => UseServiceCollection to true
+ - Register QueryHandlers (example assumes all query handlers are in the same assembly) => builder.Services.RegisterQueryHandlers(ServiceLifetime.Scoped, typeof(ExampleQueryHandler).Assembly);
+ - Register CommandHandlers (example assumes all command handlers are in the same assembly) => builder.Services.RegisterCommandHandlers(ServiceLifetime.Scoped, typeof(ExampleQueryHandler).Assembly);

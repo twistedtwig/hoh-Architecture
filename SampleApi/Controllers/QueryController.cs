@@ -13,12 +13,18 @@ namespace SampleApi.Controllers
         private readonly IServiceProvider _serviceProvider;
         private readonly IQueryCommandLocator _locator;
         private readonly IQueryHandler<TestQuery, TestQueryResult> _queryHandler;
+        private readonly IQueryExecutor _executor;
 
-        public QueryController(IServiceProvider serviceProvider, IQueryCommandLocator locator, IQueryHandler<TestQuery, TestQueryResult> queryHandler)
+        public QueryController(
+            IServiceProvider serviceProvider,
+            IQueryCommandLocator locator,
+            IQueryHandler<TestQuery, TestQueryResult> queryHandler,
+            IQueryExecutor executor)
         {
             _serviceProvider = serviceProvider;
             _locator = locator;
             _queryHandler = queryHandler;
+            _executor = executor;
         }
 
         [HttpGet]
@@ -55,6 +61,25 @@ namespace SampleApi.Controllers
 
             var queryResult = await queryHandler.ExecuteAsync(query);
 
+            return queryResult;
+        }
+
+        [HttpGet]
+        [Route("GetTestQueryExecutor")]
+        public async Task<IQueryResult<TestQueryResult>> GetExecutorTestQuery()
+        {
+            var query = new TestQuery("This is my message4");
+
+            var queryResult = await _executor.ExecuteAsync<TestQuery, TestQueryResult>(query);
+
+            return queryResult;
+        }
+
+        [HttpPost]
+        [Route("math")]
+        public async Task<IQueryResult<TestMathQueryResult>> GetMathQuery(TestMathQuery query)
+        {
+            var queryResult = await _executor.ExecuteAsync<TestMathQuery, TestMathQueryResult>(query);
             return queryResult;
         }
     }

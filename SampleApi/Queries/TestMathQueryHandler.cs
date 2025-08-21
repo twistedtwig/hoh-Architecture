@@ -1,0 +1,14 @@
+﻿using hoh.architecture.CQRS.Query;
+using hoh.architecture.CQRS.Shared.Results;
+
+namespace SampleApi.Queries;
+
+public class TestMathQueryHandler : IQueryHandler<TestMathQuery, TestMathQueryResult>
+{
+    public Task<IQueryResult<TestMathQueryResult>> ExecuteAsync(TestMathQuery query)
+    {
+        var result = new TestMathQueryResult { Answer = query.First + query.Second };
+        var queryResult = new QueryResult<TestMathQueryResult>(true, result);
+        return Task.FromResult((IQueryResult<TestMathQueryResult>)queryResult);
+    }
+}
