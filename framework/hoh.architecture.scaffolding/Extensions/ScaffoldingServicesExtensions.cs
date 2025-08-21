@@ -28,14 +28,6 @@ namespace hoh.architecture.scaffolding.Extensions
 
         public static IServiceCollection AddHohArchitecture(this IServiceCollection services, Action<HohArchitectureOptions>? configureOptions)
         {
-            var defaultOptions = HohArchitectureOptions.Default;
-            services.AddOptions<HohArchitectureOptions>().Configure(options =>
-            {
-                options.UseServiceCollection = defaultOptions.UseServiceCollection;
-                options.CommandLogging = defaultOptions.CommandLogging;
-                options.QueryLogging = defaultOptions.QueryLogging;
-            });
-
             Console.WriteLine($"AddHohArchitecture: {configureOptions = null}");
 
             //TODO will register services such as CQRS factories
@@ -57,6 +49,17 @@ namespace hoh.architecture.scaffolding.Extensions
                     HandleRegisterServices(services, options);
                     HandleQueryLogging(options);
                     HandleCommandLogging(options);
+                });
+            }
+            else
+            {
+                Console.WriteLine("config options were null");
+                var defaultOptions = HohArchitectureOptions.Default;
+                services.AddOptions<HohArchitectureOptions>().Configure(options =>
+                {
+                    options.UseServiceCollection = defaultOptions.UseServiceCollection;
+                    options.CommandLogging = defaultOptions.CommandLogging;
+                    options.QueryLogging = defaultOptions.QueryLogging;
                 });
             }
             
