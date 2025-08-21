@@ -13,13 +13,13 @@ namespace SampleApi.Controllers
         private readonly IServiceProvider _serviceProvider;
         private readonly IQueryCommandLocator _locator;
         private readonly IQueryHandler<TestQuery, TestQueryResult> _queryHandler;
-        private readonly IQueryExecutor _executor;
+        private readonly IQueryCommandExecutor _executor;
 
         public QueryController(
             IServiceProvider serviceProvider,
             IQueryCommandLocator locator,
             IQueryHandler<TestQuery, TestQueryResult> queryHandler,
-            IQueryExecutor executor)
+            IQueryCommandExecutor executor)
         {
             _serviceProvider = serviceProvider;
             _locator = locator;

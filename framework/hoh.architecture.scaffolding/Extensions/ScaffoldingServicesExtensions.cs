@@ -31,10 +31,12 @@ namespace hoh.architecture.scaffolding.Extensions
             var defaultOptions = HohArchitectureOptions.Default;
             services.AddOptions<HohArchitectureOptions>().Configure(options =>
             {
+                options.UseServiceCollection = defaultOptions.UseServiceCollection;
                 options.CommandLogging = defaultOptions.CommandLogging;
                 options.QueryLogging = defaultOptions.QueryLogging;
             });
 
+            Console.WriteLine($"AddHohArchitecture: {configureOptions = null}");
 
             //TODO will register services such as CQRS factories
 
@@ -44,19 +46,20 @@ namespace hoh.architecture.scaffolding.Extensions
 
             if (configureOptions != null)
             {
+                Console.WriteLine("in config setup area");
                 //apply configuration options provided by the consumer
                 services.Configure(configureOptions);
 
                 //once all config has been applied, ensure services are configured correctly
                 services.PostConfigure<HohArchitectureOptions>(options =>
                 {
+                    Console.WriteLine("in post config setup area");
                     HandleRegisterServices(services, options);
                     HandleQueryLogging(options);
                     HandleCommandLogging(options);
                 });
             }
             
-
             return services;
         }
 
@@ -64,6 +67,7 @@ namespace hoh.architecture.scaffolding.Extensions
         {
             if (options.UseServiceCollection)
             {
+                Console.WriteLine("HandleRegisterServices");
                 services.AddScoped<IQueryCommandExecutor, QueryCommandExecutor>();
                 services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
             }

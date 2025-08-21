@@ -9,6 +9,7 @@
 
         public static HohArchitectureOptions Default => new HohArchitectureOptions
         {
+            UseServiceCollection = true,
             CommandLogging = new CommandLoggingOptions
             {
                 TableName = "CommandsExecuted",
