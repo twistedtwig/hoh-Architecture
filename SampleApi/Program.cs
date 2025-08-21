@@ -11,6 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//TODO want to load the HohArchitectureOptions configuration from the appsettings or web config
+//builder.Services.AddOptions().Configure<HohArchitectureOptions>(builder..GetSection("mySection"))
+builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSection("RootConfig"));
+
 // builder.Services.AddHohArchitecture();
 builder.Services.AddHohArchitecture(x =>
 {
@@ -19,7 +23,6 @@ builder.Services.AddHohArchitecture(x =>
     x.UseServiceCollection = true;
 });
 
-builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSection("RootConfig"));
 builder.Configuration.Sources.Add(new InMemoryTestCustomConfigurationSource());
 
 builder.Services.RegisterQueryHandlers(ServiceLifetime.Scoped, typeof(Program).Assembly);
