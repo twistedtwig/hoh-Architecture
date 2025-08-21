@@ -5,7 +5,7 @@
         public QueryLoggingOptions QueryLogging { get; set; }
         public CommandLoggingOptions CommandLogging { get; set; }
 
-        public bool UseServiceCollection { get; set; } = false;
+        public bool UseServiceCollection { get; set; } = true;
 
         public static HohArchitectureOptions Default => new HohArchitectureOptions
         {
