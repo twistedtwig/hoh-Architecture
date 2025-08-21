@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HoH-Architecture" Version="1.0.52" />
+    <PackageReference Include="HoH-Architecture" Version="1.0.53" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.19" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.4" />

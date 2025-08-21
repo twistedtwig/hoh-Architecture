@@ -31,6 +31,7 @@ namespace hoh.architecture.scaffolding.Extensions
             Console.WriteLine($"AddHohArchitecture start");
             var options = HohArchitectureOptions.Default;
             configureOptions?.Invoke(options);
+            Console.WriteLine($"0 config setup, use service {options.UseServiceCollection}, {options.CommandLogging.CommandLoggingConnectionString} {options.CommandLogging.TableName}");
 
             services.AddOptions<HohArchitectureOptions>().Configure(hohOptions =>
             {
