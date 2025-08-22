@@ -50,6 +50,13 @@ builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSect
 ```
 Or you could provide [another configuration provider](SampleApi/CustomConfigurationProvider/InMemoryTestCustomConfigurationProvider.cs). These all chain together.  Be sure to call `AddHohArchitecture` first then provide any of your override methods. [see Program.cs](SampleApi/Program.cs) for examples.
 
+The order in which configuration is applied is:
+
+1) builder.Services.AddHohArchitecture => action parameters
+2) bindings, such as:
+    a) Get section `builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSection("RootConfig"));`
+    b) IConfigurationSource `builder.Configuration.Sources.Add(new InMemoryTestCustomConfigurationSource());`
+
 [CommandQueryLoggingType.cs](framework/hoh.architecture.scaffolding/Configuration/HohArchitectureOptions.cs)
 
 See SampleAPI => QueryController for an example of executing a query.  It follows this convention
