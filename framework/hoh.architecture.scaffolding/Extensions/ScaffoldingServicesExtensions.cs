@@ -108,7 +108,6 @@ namespace hoh.architecture.scaffolding.Extensions
                 HandleCommandLogging(options);
             });
 
-            Console.WriteLine($"AddHohArchitecture end");
             return services;
         }
 
