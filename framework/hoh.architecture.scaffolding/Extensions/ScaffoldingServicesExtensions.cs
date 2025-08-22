@@ -42,40 +42,40 @@ namespace hoh.architecture.scaffolding.Extensions
                     hohOptions.UseServiceCollection = options.UseServiceCollection;
                 }
 
-                if (options.CommandLogging.Type.HasValue)
+                if (options.CommandLogging.Type.HasValue && hohOptions.CommandLogging.Type != options.CommandLogging.Type.Value)
                 {
+                    Console.WriteLine($"setting CommandLogging.Type {options.CommandLogging.Type.Value} - {hohOptions.CommandLogging.Type}");
                     hohOptions.CommandLogging.Type = options.CommandLogging.Type;
-                    Console.WriteLine($"setting CommandLogging.Type  {hohOptions.CommandLogging.Type}");
                 }
 
-                if (!string.IsNullOrWhiteSpace(options.CommandLogging.CommandLoggingConnectionString))
+                if (!string.IsNullOrWhiteSpace(options.CommandLogging.CommandLoggingConnectionString) && options.CommandLogging.CommandLoggingConnectionString != hohOptions.CommandLogging.CommandLoggingConnectionString)
                 {
+                    Console.WriteLine($"setting CommandLogging.CommandLoggingConnectionString {options.CommandLogging.CommandLoggingConnectionString} - {hohOptions.CommandLogging.CommandLoggingConnectionString}");
                     hohOptions.CommandLogging.CommandLoggingConnectionString= options.CommandLogging.CommandLoggingConnectionString;
-                    Console.WriteLine($"setting CommandLogging.CommandLoggingConnectionString  {hohOptions.CommandLogging.CommandLoggingConnectionString}");
                 }
 
-                if (!string.IsNullOrWhiteSpace(options.CommandLogging.TableName))
+                if (!string.IsNullOrWhiteSpace(options.CommandLogging.TableName) && options.CommandLogging.TableName != hohOptions.CommandLogging.TableName)
                 {
+                    Console.WriteLine($"setting CommandLogging.TableName {options.CommandLogging.TableName} - {hohOptions.CommandLogging.TableName}");
                     hohOptions.CommandLogging.TableName = options.CommandLogging.TableName;
-                    Console.WriteLine($"setting CommandLogging.TableName  {hohOptions.CommandLogging.TableName}");
                 }
 
-                if (options.QueryLogging.Type.HasValue)
+                if (options.QueryLogging.Type.HasValue && options.QueryLogging.Type != hohOptions.QueryLogging.Type)
                 {
+                    Console.WriteLine($"setting QueryLogging.Type {options.QueryLogging.Type} - {hohOptions.QueryLogging.Type}");
                     hohOptions.QueryLogging.Type = options.QueryLogging.Type;
-                    Console.WriteLine($"setting QueryLogging.Type  {hohOptions.QueryLogging.Type}");
                 }
 
-                if (!string.IsNullOrWhiteSpace(options.QueryLogging.QueryLoggingConnectionString))
+                if (!string.IsNullOrWhiteSpace(options.QueryLogging.QueryLoggingConnectionString) && options.QueryLogging.QueryLoggingConnectionString != hohOptions.QueryLogging.QueryLoggingConnectionString)
                 {
+                    Console.WriteLine($"setting QueryLogging.QueryLoggingConnectionString {options.QueryLogging.QueryLoggingConnectionString} - {hohOptions.QueryLogging.QueryLoggingConnectionString}");
                     hohOptions.QueryLogging.QueryLoggingConnectionString = options.QueryLogging.QueryLoggingConnectionString;
-                    Console.WriteLine($"setting QueryLogging.QueryLoggingConnectionString  {hohOptions.QueryLogging.QueryLoggingConnectionString}");
                 }
 
-                if (!string.IsNullOrWhiteSpace(options.QueryLogging.TableName))
+                if (!string.IsNullOrWhiteSpace(options.QueryLogging.TableName) && options.QueryLogging.TableName != hohOptions.QueryLogging.TableName)
                 {
+                    Console.WriteLine($"setting QueryLogging.TableName {options.QueryLogging.TableName} - {hohOptions.QueryLogging.TableName}");
                     hohOptions.QueryLogging.TableName = options.QueryLogging.TableName;
-                    Console.WriteLine($"setting QueryLogging.TableName  {hohOptions.QueryLogging.TableName}");
                 }
 
                 Console.WriteLine($"2 config setup, use service {hohOptions.UseServiceCollection}, {hohOptions.CommandLogging.CommandLoggingConnectionString} {hohOptions.CommandLogging.TableName}");
