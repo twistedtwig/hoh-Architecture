@@ -1,7 +1,8 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+﻿using hoh.architecture.CQRS.Shared.QueryCommandHandling;
 using hoh.architecture.scaffolding.Configuration;
-using hoh.architecture.CQRS.Shared.QueryCommandHandling;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Reflection;
 
 namespace hoh.architecture.scaffolding.Extensions
 {
@@ -101,6 +102,8 @@ namespace hoh.architecture.scaffolding.Extensions
             //once all config has been applied, ensure services are configured correctly
             services.PostConfigure<HohArchitectureOptions>(options =>
             {
+                Console.WriteLine($"5 config setup, use service {options.UseServiceCollection}, {options.CommandLogging.CommandLoggingConnectionString} {options.CommandLogging.TableName} {options.QueryLogging.TableName}");
+                
                 Console.WriteLine("in post config setup area");
                 //HandleRegisterServices(services, options);
                 HandleQueryLogging(options);
