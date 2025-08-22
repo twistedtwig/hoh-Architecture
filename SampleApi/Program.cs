@@ -31,17 +31,6 @@ builder.Services.RegisterCommandHandlers(ServiceLifetime.Scoped, typeof(Program)
 
 Console.WriteLine("test test test test");
 
-////TODO this should be in the AddHohArchitecture setup process.
-//builder.Services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
-
-////TODO this should be in the AddHohArchitecture setup process.
-//builder.Services.AddScoped<IQueryExecutor, QueryExecutor>();
-
-//builder.Services.RegisterQueryHandlers(ServiceLifetime.Scoped, typeof(Program).Assembly);
-
-//builder.Services.AddScoped<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();
-//builder.Services.AddScoped<IQueryHandler<TestMathQuery, TestMathQueryResult>, TestMathQueryHandler>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

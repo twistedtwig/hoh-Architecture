@@ -88,12 +88,14 @@ namespace hoh.architecture.scaffolding.Extensions
                 services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
             }
 
+
+
             //TODO will register services such as CQRS factories
 
 
             //TODO register IRepository
 
-            services.Configure(configureOptions);
+            // services.Configure<HohArchitectureOptions>(configureOptions);
 
             Console.WriteLine($"AddHohArchitecture after options");
             //once all config has been applied, ensure services are configured correctly
