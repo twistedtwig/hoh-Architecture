@@ -1,7 +1,6 @@
 ﻿using hoh.architecture.CQRS.Shared.QueryCommandHandling;
 using hoh.architecture.scaffolding.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Reflection;
 
 namespace hoh.architecture.scaffolding.Extensions

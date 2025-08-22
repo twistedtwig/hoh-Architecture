@@ -4,11 +4,8 @@
      - logging
      - execution time
      - save query and time 
- - add ICommandQueryLocator to setup `UseServiceProvider` 
- - add function to setup to locate all commands and queries from assembly(s) with ServiceProvider
  - add logging
  - metadata logging. Allows systems to add data, such as user and place of caller
- - load the HohArchitectureOptions configuration from the appsettings or web config
 
 
 
