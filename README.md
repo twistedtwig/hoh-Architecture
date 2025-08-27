@@ -101,7 +101,7 @@ public class QueryController : ControllerBase
 
  2) Resolve with the IServiceProvider:
 
- `builder.Services.AddTransient<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();`
+ `builder.Services.AddScoped<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();`
 
 Inject the IQueryHandler into the Controller:
 
@@ -161,7 +161,7 @@ Inject the locator and resolve:
 }
 ```
 
-4) Implement your own IQueryCommandLocator and inject as above. This can allow abstraction on resolving handlers, as well as using a different DI framework.
+4) Implement your own IQueryCommandLocator and inject as above. This can allow abstraction on resolving handlers, as well as using a different DI framework. Custom registration should happen before calling IApplicationBuilder.`AddHohArchitecture`, at least for `IQueryCommandLogging` if you want registration to happen automatically.
 
 
 ## Command and Query logging and statistics

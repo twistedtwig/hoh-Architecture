@@ -1,4 +1,4 @@
-﻿namespace hoh.architecture.scaffolding.Configuration
+﻿namespace hoh.architecture.Shared.Configuration
 {
     public class HohArchitectureOptions
     {
@@ -14,12 +14,14 @@
             {
                 TableName = "CommandsExecuted",
                 CommandLoggingConnectionString = "myConnectionString",
+                EnableSensitiveDataLogging = false,
                 Type = CommandQueryLoggingType.BuiltInEfProvider
             },
             QueryLogging = new QueryLoggingOptions
             {
                 TableName = "QueriesExecuted",
                 QueryLoggingConnectionString = "myConnectionString",
+                EnableSensitiveDataLogging = false,
                 Type = CommandQueryLoggingType.None
             },
         };

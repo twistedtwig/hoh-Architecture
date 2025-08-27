@@ -1,4 +1,5 @@
 ﻿using hoh.architecture.CQRS.Command;
+using hoh.architecture.CQRS.Logging;
 using hoh.architecture.CQRS.Query;
 using hoh.architecture.CQRS.Shared.Results;
 
@@ -7,43 +8,58 @@ namespace hoh.architecture.CQRS.Shared.QueryCommandHandling
     public class QueryCommandExecutor : IQueryCommandExecutor
     {
         private readonly IQueryCommandLocator _queryCommandLocator;
+        private readonly IQueryCommandLogging _logging;
 
-        public QueryCommandExecutor(IQueryCommandLocator queryCommandLocator)
+        public QueryCommandExecutor(IQueryCommandLocator queryCommandLocator, IQueryCommandLogging logging)
         {
             _queryCommandLocator = queryCommandLocator;
+            _logging = logging;
         }
 
         public async Task<IQueryResult<TR>> ExecuteAsync<TQ, TR>(TQ query) where TQ : IQuery where TR : class
         {
-            /*
-             * locate query handler
-             * optional logging of query and execution duration and time.
-             * saving query if required
-             */
+            var startTime = DateTime.Now.ToUniversalTime();
+            var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            // if (query == null)
-            // {
-            //     throw new ArgumentNullException(nameof(query));
-            // }
+            if (query == null)
+            {
+                throw new ArgumentNullException(nameof(query));
+            }
 
             var queryHandler = await _queryCommandLocator.LocateQueryHandlerAsync<TQ, TR>();
+            if (queryHandler == null)
+            {
+                throw new ArgumentNullException(nameof(queryHandler));
+            }
 
-            var result = await queryHandler.ExecuteAsync(query);
+            var error = string.Empty;
+            var success = true;
+            IQueryResult<TR> result;
+            try
+            {
+                result = await queryHandler.ExecuteAsync(query);
 
-            // var queryType = query.GetType();
-            // var handler = (RequestCreatorWrapper<T>)Activator.CreateInstance(typeof(RequestCreatorWrapperImpl<,>).MakeGenericType(queryType, typeof(T)));
-            //
-            // if (handler == null)
-            // {
-            //     throw new ArgumentNullException(nameof(handler));
-            //
-            // }
-            //
-            // //TODO logging etc
-            //
-            // var result = await _queryCommandRequestHandler.HandleQueryAsync<>().HandleQuery(query, _serviceProvider);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                success = false;
+                throw;
+            }
+            finally
+            {
+                watch.Stop();
 
-            //TODO more logging
+                var loggingResult = new QueryCommandLoggingResult
+                {
+                    Error = error,
+                    ExecutionTime = startTime,
+                    Success = success,
+                    TimeSpan = watch.Elapsed
+                };
+
+                await _logging.LogQueryAsync(query, loggingResult);
+            }
 
             return result;
         }

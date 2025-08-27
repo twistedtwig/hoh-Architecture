@@ -1,4 +1,4 @@
-﻿namespace hoh.architecture.scaffolding.Configuration
+﻿namespace hoh.architecture.Shared.Configuration
 {
     public enum CommandQueryLoggingType
     {

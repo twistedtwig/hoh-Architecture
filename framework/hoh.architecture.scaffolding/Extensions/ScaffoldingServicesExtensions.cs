@@ -1,7 +1,8 @@
 ﻿using hoh.architecture.CQRS.Shared.QueryCommandHandling;
-using hoh.architecture.scaffolding.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using hoh.architecture.CQRS.Logging;
+using hoh.architecture.Shared.Configuration;
 
 namespace hoh.architecture.scaffolding.Extensions
 {
@@ -91,50 +92,47 @@ namespace hoh.architecture.scaffolding.Extensions
             {
                 services.AddScoped<IQueryCommandExecutor, QueryCommandExecutor>();
                 services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
+
+                RegisterQueryLogging(services, options);
+                RegisterCommandLogging(services, options);
             }
 
-
-
-            //TODO will register services such as CQRS factories
-
-
-            //TODO register IRepository
-
-            //once all config has been applied, ensure services are configured correctly
             services.PostConfigure<HohArchitectureOptions>(options =>
             {
-                HandleQueryLogging(options);
-                HandleCommandLogging(options);
             });
 
             return services;
         }
 
-        private static void HandleQueryLogging(HohArchitectureOptions options)
+        private static void RegisterQueryLogging(IServiceCollection services, HohArchitectureOptions options)
         {
             switch (options.QueryLogging.Type)
             {
                 case CommandQueryLoggingType.None:
-                    //TODO register blank query and command loggers
+                    services.AddScoped<IQueryCommandLogging, EmptyQueryCommandLogger>();
                     break;
+
                 case CommandQueryLoggingType.BuiltInEfProvider:
-                    //TODO register ef logger
+                    services.AddScoped<IQueryCommandLogging, EntityFrameworkQueryCommandLogger>();
                     break;
+
                 case CommandQueryLoggingType.Custom:
                     break;
             }
         }
 
-        private static void HandleCommandLogging(HohArchitectureOptions options)
+        private static void RegisterCommandLogging(IServiceCollection services, HohArchitectureOptions options)
         {
             switch (options.CommandLogging.Type)
             {
                 case CommandQueryLoggingType.None:
-                    //TODO register blank query and command loggers
+                    services.AddScoped<IQueryCommandLogging, EmptyQueryCommandLogger>();
                     break;
+
                 case CommandQueryLoggingType.BuiltInEfProvider:
-                    //TODO register ef logger
+                    services.AddScoped<IQueryCommandLogging, EntityFrameworkQueryCommandLogger>();
                     break;
+
                 case CommandQueryLoggingType.Custom:
                     break;
             }
