@@ -4,6 +4,16 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageId>HoH-Architecture-Shared</PackageId>
+    <Title>HOH Architecture Shared</Title>
+    <Deterministic>false</Deterministic>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <Version>1.0.0</Version>
+    <Authors>Jon Hawkins</Authors>
+    <Product>Hoh-Architecture-Shared</Product>
+    <PackageProjectUrl>https://github.com/twistedtwig/hoh-Architecture</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/twistedtwig/hoh-Architecture</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
