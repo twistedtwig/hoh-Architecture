@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\hoh.architecture.CQRS\hoh.architecture.CQRS.csproj" />
+    <ProjectReference Include="..\HoH.Architecture.CQRS\HoH.Architecture.CQRS.csproj" />
   </ItemGroup>
 
 </Project>
