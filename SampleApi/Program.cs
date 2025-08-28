@@ -1,5 +1,5 @@
-using hoh.architecture.scaffolding.Configuration;
 using hoh.architecture.scaffolding.Extensions;
+using hoh.architecture.Shared.Configuration;
 using SampleApi.CustomConfigurationProvider;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +40,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseHohArchitecture();
+app.UseHohArchitecture(builder.Services);
 
 app.MapControllers();
 

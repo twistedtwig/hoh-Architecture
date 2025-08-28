@@ -1,4 +1,4 @@
-﻿using hoh.architecture.scaffolding.Configuration;
+﻿using hoh.architecture.Shared.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 

@@ -9,6 +9,10 @@ namespace hoh.architecture.CQRS.Logging
 {
     public class LoggingDbContext : DbContext
     {
+        public LoggingDbContext(DbContextOptions<LoggingDbContext> options) : base(options)
+        {
+            
+        }
         /*
          * todo hohoptions configure dbcontext, set the entity and table name
          */
