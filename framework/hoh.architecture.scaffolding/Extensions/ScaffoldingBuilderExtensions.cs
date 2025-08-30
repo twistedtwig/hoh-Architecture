@@ -1,22 +1,12 @@
-﻿using hoh.architecture.CQRS.Logging;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Builder;
 
 namespace hoh.architecture.scaffolding.Extensions
 {
     public static class ScaffoldingBuilderExtensions
     {
-        public static IApplicationBuilder UseHohArchitecture(this IApplicationBuilder app, IServiceCollection serviceCollection)
+        public static IApplicationBuilder UseHohArchitecture(this IApplicationBuilder app)
         {
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                var loggingService = scope.ServiceProvider.GetService<IQueryCommandLogging>();
-                if (loggingService != null)
-                {
-                    loggingService.RegisterServiceAsync(app, serviceCollection);
-                }
-            }
-
+            //TODO any app setup should go here
             return app;
         }
     }

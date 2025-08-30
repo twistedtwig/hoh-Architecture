@@ -217,3 +217,8 @@ namespace SampleApi.Controllers
  - set AddHohArchitecture => options => UseServiceCollection to true
  - Register QueryHandlers (example assumes all query handlers are in the same assembly) => builder.Services.RegisterQueryHandlers(ServiceLifetime.Scoped, typeof(ExampleQueryHandler).Assembly);
  - Register CommandHandlers (example assumes all command handlers are in the same assembly) => builder.Services.RegisterCommandHandlers(ServiceLifetime.Scoped, typeof(ExampleQueryHandler).Assembly);
+
+ ## Registering DB logging 
+
+ - You can manually AddDbContext<YouLoggingDbContext>(options => {}) during service registration
+ - Use AddHohArchitecture overload. 
