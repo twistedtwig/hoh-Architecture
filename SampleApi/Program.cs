@@ -15,8 +15,12 @@ builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSect
 builder.Services.AddHohArchitecture(x =>
 {
     x.CommandLogging.CommandLoggingConnectionString = "con1";
+    x.CommandLogging.Type = CommandQueryLoggingType.None;
+
     x.QueryLogging.QueryLoggingConnectionString = "con3";
     x.QueryLogging.TableName = "new table name";
+    x.QueryLogging.Type = CommandQueryLoggingType.None;
+
     x.UseServiceCollection = true;
 });
 
@@ -40,7 +44,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseHohArchitecture(builder.Services);
+app.UseHohArchitecture();
 
 app.MapControllers();
 

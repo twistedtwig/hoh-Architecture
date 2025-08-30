@@ -38,7 +38,7 @@ The default values in the above class show what will be initially setup.  These 
 ```
 builder.Services.AddHohArchitecture(x =>
 {
-    x.CommandLogging.CommandLoggingConnectionString = "con1";
+    x.ConnectionString = "con1";
 });
 ```
 Or using appsettings.json
@@ -218,7 +218,19 @@ namespace SampleApi.Controllers
  - Register QueryHandlers (example assumes all query handlers are in the same assembly) => builder.Services.RegisterQueryHandlers(ServiceLifetime.Scoped, typeof(ExampleQueryHandler).Assembly);
  - Register CommandHandlers (example assumes all command handlers are in the same assembly) => builder.Services.RegisterCommandHandlers(ServiceLifetime.Scoped, typeof(ExampleQueryHandler).Assembly);
 
+
  ## Registering DB logging 
 
- - You can manually AddDbContext<YouLoggingDbContext>(options => {}) during service registration
+ - If you do not want to use logging
+
+```
+builder.Services.AddHohArchitecture(x =>
+{
+    x.CommandLogging.Type = CommandQueryLoggingType.None;
+    x.QueryLogging.Type = CommandQueryLoggingType.None;
+    x.UseServiceCollection = true;
+});
+```
+
+ - You can manually builder.Services.AddDbContext<YouLoggingDbContext>(options => {}) during service registration
  - Use AddHohArchitecture overload. 

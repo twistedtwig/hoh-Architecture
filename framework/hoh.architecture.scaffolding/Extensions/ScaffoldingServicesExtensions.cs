@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using hoh.architecture.CQRS.Logging;
 using hoh.architecture.Shared.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace hoh.architecture.scaffolding.Extensions
 {
@@ -26,8 +27,26 @@ namespace hoh.architecture.scaffolding.Extensions
 
             return services;
         }
-
+        
         public static IServiceCollection AddHohArchitecture(this IServiceCollection services, Action<HohArchitectureOptions>? configureOptions)
+        {
+            SetupHohArchitecture(services, configureOptions);
+
+            return services;
+        }
+
+        public static IServiceCollection AddHohArchitecture<TL>(
+            this IServiceCollection services,
+            Action<HohArchitectureOptions>? configureOptions,
+            Action<DbContextOptionsBuilder>? loggingOptionsAction = null) where TL : DbContext
+        {
+            SetupHohArchitecture(services, configureOptions);
+            services.AddDbContext<TL>(loggingOptionsAction);
+
+            return services;
+        }
+
+        private static void SetupHohArchitecture(IServiceCollection services, Action<HohArchitectureOptions>? configureOptions)
         {
             var options = HohArchitectureOptions.Default;
             configureOptions?.Invoke(options);
@@ -62,9 +81,9 @@ namespace hoh.architecture.scaffolding.Extensions
                         hohOptions.CommandLogging.TableName = options.CommandLogging.TableName;
                     }
 
-                    if (string.IsNullOrWhiteSpace(hohOptions.CommandLogging.CommandLoggingConnectionString))
+                    if (string.IsNullOrWhiteSpace(hohOptions.ConnectionString))
                     {
-                        hohOptions.CommandLogging.CommandLoggingConnectionString = options.CommandLogging.CommandLoggingConnectionString;
+                        hohOptions.ConnectionString = options.ConnectionString;
                     }
                 }
 
@@ -81,9 +100,9 @@ namespace hoh.architecture.scaffolding.Extensions
                         hohOptions.QueryLogging.TableName = options.QueryLogging.TableName;
                     }
 
-                    if (string.IsNullOrWhiteSpace(hohOptions.QueryLogging.QueryLoggingConnectionString))
+                    if (string.IsNullOrWhiteSpace(hohOptions.ConnectionString))
                     {
-                        hohOptions.QueryLogging.QueryLoggingConnectionString = options.QueryLogging.QueryLoggingConnectionString;
+                        hohOptions.ConnectionString = options.ConnectionString;
                     }
                 }
             });
@@ -100,8 +119,6 @@ namespace hoh.architecture.scaffolding.Extensions
             services.PostConfigure<HohArchitectureOptions>(options =>
             {
             });
-
-            return services;
         }
 
         private static void RegisterQueryLogging(IServiceCollection services, HohArchitectureOptions options)
