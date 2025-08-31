@@ -1,4 +1,5 @@
-﻿using hoh.architecture.CQRS.Query;
+﻿
+using HoH.Architecture.CQRS.Query;
 
 namespace SampleApi.Queries
 {

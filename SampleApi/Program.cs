@@ -1,6 +1,6 @@
-using hoh.architecture.CQRS.Logging;
-using hoh.architecture.scaffolding.Extensions;
-using hoh.architecture.Shared.Configuration;
+using HoH.Architecture.CQRS.Logging;
+using HoH.Architecture.scaffolding.Extensions;
+using HoH.Architecture.Shared.Configuration;
 using SampleApi.CustomConfigurationProvider;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,8 +15,7 @@ builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSect
 
 builder.Services.AddHohArchitecture<EntityFrameworkCommandQueryLogger, LoggingDbContext>(x =>
 {
-    x.ConnectionString = @"Data Source=localhost;Initial Catalog=YourDatabase2; uid=sa;pwd=123456;MultipleActiveResultSets=true; TrustServerCertificate=True;Trusted_Connection=True;";
-    x.TableName = "LoggingQueryCommands";
+    x.CommandQueryLoggingConnectionString = @"Data Source=localhost;Initial Catalog=YourDatabase2; uid=sa;pwd=123456;MultipleActiveResultSets=true; TrustServerCertificate=True;Trusted_Connection=True;";
 
     x.UseServiceCollection = true;
 });

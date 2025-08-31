@@ -1,6 +1,6 @@
-using hoh.architecture.CQRS.Query;
-using hoh.architecture.CQRS.Shared.QueryCommandHandling;
-using hoh.architecture.CQRS.Shared.Results;
+using HoH.Architecture.CQRS.Query;
+using HoH.Architecture.CQRS.Shared.QueryCommandHandling;
+using HoH.Architecture.CQRS.Shared.Results;
 using Microsoft.AspNetCore.Mvc;
 using SampleApi.Queries;
 

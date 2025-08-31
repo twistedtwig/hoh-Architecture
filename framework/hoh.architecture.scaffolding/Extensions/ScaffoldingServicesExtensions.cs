@@ -76,6 +76,11 @@ namespace HoH.Architecture.scaffolding.Extensions
                     return;
                 }
 
+                if (string.IsNullOrWhiteSpace(hohOptions.CommandQueryLoggingConnectionString))
+                {
+                    hohOptions.CommandQueryLoggingConnectionString = options.CommandQueryLoggingConnectionString;
+                }
+
                 hohOptions.UseServiceCollection ??= options.UseServiceCollection;
             });
 

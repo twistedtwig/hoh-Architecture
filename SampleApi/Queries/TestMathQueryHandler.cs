@@ -1,5 +1,6 @@
-﻿using hoh.architecture.CQRS.Query;
-using hoh.architecture.CQRS.Shared.Results;
+﻿
+using HoH.Architecture.CQRS.Query;
+using HoH.Architecture.CQRS.Shared.Results;
 
 namespace SampleApi.Queries;
 
