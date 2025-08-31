@@ -31,9 +31,7 @@ All commands and queries can be automatically logged for future investigations.
 - register the query and command handlers with the IServiceCollection
 
 ## Configuration
-There are various options that can be set at the top level via configuration, [see CommandQueryLoggingType](framework/hoh.architecture.scaffolding/Configuration/CommandQueryLoggingType.cs) for the configuration class
-
-The default values in the above class show what will be initially setup.  These can be overridden in a variety of ways
+There are various options that can be set at the top level via configuration.  These can be overridden in a variety of ways. The one variable required if the dfault EF logging is to be used, is to set the connection string.
 
 ```
 builder.Services.AddHohArchitecture(x =>
@@ -69,7 +67,7 @@ There are various ways to instantiate an instance:
 
  1) Manually register with the IServiceProvider:
 
- `builder.Services.AddTransient<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();`
+ `builder.Services.AddScoped<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();`
 
 Inject the IServiceProvider into the Controller and resolve the handler:
 
@@ -126,12 +124,11 @@ public class QueryController : ControllerBase
 }
 ```
 
-3) Register ServiceProviderQueryCommandLocator, which will intern use IServiceProvider
+3) Register ServiceProviderQueryCommandLocator, which will intern use IServiceProvider / setting UseServiceCollection option to true will register `ServiceProviderQueryCommandLocator` and `QueryCommandExecutor`
 
 ```
-//TODO this should be in the AddHohArchitecture setup process.
-builder.Services.AddTransient<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
-builder.Services.AddTransient<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();
+builder.Services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
+builder.Services.AddScoped<IQueryHandler<TestQuery, TestQueryResult>, TestQueryHandler>();
 ```
 
 Inject the locator and resolve:
@@ -221,16 +218,19 @@ namespace SampleApi.Controllers
 
  ## Registering DB logging 
 
- - If you do not want to use logging
+ - If you do not want to use logging, not not register any `ICommandQueryLogging`
 
-```
-builder.Services.AddHohArchitecture(x =>
+ - `services.RegisterCommandQueryLogging()` will register the default `EntityFrameworkCommandQueryLogger`
+ - `services.RegisterCommandQueryLogging<T>()` will register T your own implementation of `ICommandQueryLogging`
+
+
+ - You can manually builder.Services.AddDbContext<YourCommandQueryLogger, YouLoggingDbContext>(options => {}) during service registration
+ - Use AddHohArchitecture overload. 
+ ```
+builder.Services.AddHohArchitecture<EntityFrameworkCommandQueryLogger, LoggingDbContext>(x =>
 {
-    x.CommandLogging.Type = CommandQueryLoggingType.None;
-    x.QueryLogging.Type = CommandQueryLoggingType.None;
+    x.ConnectionString = "con1";
+    x.TableName = "LoggingQueryCommands";
     x.UseServiceCollection = true;
 });
-```
-
- - You can manually builder.Services.AddDbContext<YouLoggingDbContext>(options => {}) during service registration
- - Use AddHohArchitecture overload. 
+ ```

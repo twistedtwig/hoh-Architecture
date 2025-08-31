@@ -8,9 +8,9 @@ namespace hoh.architecture.CQRS.Shared.QueryCommandHandling
     public class QueryCommandExecutor : IQueryCommandExecutor
     {
         private readonly IQueryCommandLocator _queryCommandLocator;
-        private readonly IQueryCommandLogging _logging;
+        private readonly ICommandQueryLogging _logging;
 
-        public QueryCommandExecutor(IQueryCommandLocator queryCommandLocator, IQueryCommandLogging logging)
+        public QueryCommandExecutor(IQueryCommandLocator queryCommandLocator, ICommandQueryLogging logging)
         {
             _queryCommandLocator = queryCommandLocator;
             _logging = logging;

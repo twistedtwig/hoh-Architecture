@@ -4,16 +4,12 @@ using System.Reflection;
 using hoh.architecture.CQRS.Logging;
 using hoh.architecture.Shared.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace hoh.architecture.scaffolding.Extensions
 {
     public static class ScaffoldingServicesExtensions
     {
-        public static IServiceCollection AddHohArchitecture(this IServiceCollection services)
-        {
-            return AddHohArchitecture(services, null);
-        }
-
         public static IServiceCollection RegisterQueryHandlers(this IServiceCollection services, ServiceLifetime lifetime, params Assembly[] assemblies)
         {
             AssemblyHelpers.RegisterQueryHandlers(services, lifetime, assemblies);
@@ -27,26 +23,40 @@ namespace hoh.architecture.scaffolding.Extensions
 
             return services;
         }
-        
+
+        public static IServiceCollection AddHohArchitecture(this IServiceCollection services)
+        {
+            return AddHohArchitecture(services, null);
+        }
+
         public static IServiceCollection AddHohArchitecture(this IServiceCollection services, Action<HohArchitectureOptions>? configureOptions)
         {
-            SetupHohArchitecture(services, configureOptions);
+            SetupHohArchitectureOptions(services, configureOptions);
 
             return services;
         }
 
-        public static IServiceCollection AddHohArchitecture<TL>(
+        public static IServiceCollection AddHohArchitecture<TL, TDb>(
             this IServiceCollection services,
             Action<HohArchitectureOptions>? configureOptions,
-            Action<DbContextOptionsBuilder>? loggingOptionsAction = null) where TL : DbContext
+            ServiceLifetime lifetime = ServiceLifetime.Scoped)
+            where TDb : DbContext
+            where TL : class, ICommandQueryLogging
         {
-            SetupHohArchitecture(services, configureOptions);
-            services.AddDbContext<TL>(loggingOptionsAction);
+            SetupHohArchitectureOptions(services, configureOptions);
+            RegisterCommandQueryLogging<TL>(services, lifetime);
+
+            services.AddDbContext<TDb>((sp, builder) =>
+            {
+                var hohOptions = sp.GetRequiredService<IOptions<HohArchitectureOptions>>();
+                builder.UseSqlServer(hohOptions.Value.ConnectionString);
+                builder.EnableSensitiveDataLogging(hohOptions.Value.EnableSensitiveDataLogging);
+            });
 
             return services;
         }
 
-        private static void SetupHohArchitecture(IServiceCollection services, Action<HohArchitectureOptions>? configureOptions)
+        private static void SetupHohArchitectureOptions(IServiceCollection services, Action<HohArchitectureOptions>? configureOptions)
         {
             var options = HohArchitectureOptions.Default;
             configureOptions?.Invoke(options);
@@ -68,42 +78,14 @@ namespace hoh.architecture.scaffolding.Extensions
 
                 hohOptions.UseServiceCollection ??= options.UseServiceCollection;
 
-                if (hohOptions.CommandLogging == null)
+                if (string.IsNullOrWhiteSpace(hohOptions.TableName))
                 {
-                    hohOptions.CommandLogging = options.CommandLogging;
-                }
-                else
-                {
-                    hohOptions.CommandLogging.Type ??= options.CommandLogging.Type;
-
-                    if (string.IsNullOrWhiteSpace(hohOptions.CommandLogging.TableName))
-                    {
-                        hohOptions.CommandLogging.TableName = options.CommandLogging.TableName;
-                    }
-
-                    if (string.IsNullOrWhiteSpace(hohOptions.ConnectionString))
-                    {
-                        hohOptions.ConnectionString = options.ConnectionString;
-                    }
+                    hohOptions.TableName = options.TableName;
                 }
 
-                if (hohOptions.QueryLogging == null)
+                if (string.IsNullOrWhiteSpace(hohOptions.ConnectionString))
                 {
-                    hohOptions.QueryLogging = options.QueryLogging;
-                }
-                else
-                {
-                    hohOptions.QueryLogging.Type ??= options.QueryLogging.Type;
-
-                    if (string.IsNullOrWhiteSpace(hohOptions.QueryLogging.TableName))
-                    {
-                        hohOptions.QueryLogging.TableName = options.QueryLogging.TableName;
-                    }
-
-                    if (string.IsNullOrWhiteSpace(hohOptions.ConnectionString))
-                    {
-                        hohOptions.ConnectionString = options.ConnectionString;
-                    }
+                    hohOptions.ConnectionString = options.ConnectionString;
                 }
             });
 
@@ -111,47 +93,30 @@ namespace hoh.architecture.scaffolding.Extensions
             {
                 services.AddScoped<IQueryCommandExecutor, QueryCommandExecutor>();
                 services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
-
-                RegisterQueryLogging(services, options);
-                RegisterCommandLogging(services, options);
             }
 
-            services.PostConfigure<HohArchitectureOptions>(options =>
-            {
-            });
+            services.PostConfigure<HohArchitectureOptions>(options => { });
         }
 
-        private static void RegisterQueryLogging(IServiceCollection services, HohArchitectureOptions options)
+        private static void RegisterCommandQueryLogging<T>(IServiceCollection services, ServiceLifetime lifetime = ServiceLifetime.Scoped)
+            where T : class, ICommandQueryLogging
         {
-            switch (options.QueryLogging.Type)
+            switch (lifetime)
             {
-                case CommandQueryLoggingType.None:
-                    services.AddScoped<IQueryCommandLogging, EmptyQueryCommandLogger>();
+                case ServiceLifetime.Singleton:
+                    services.AddSingleton<ICommandQueryLogging, T>();
                     break;
 
-                case CommandQueryLoggingType.BuiltInEfProvider:
-                    services.AddScoped<IQueryCommandLogging, EntityFrameworkQueryCommandLogger>();
+                case ServiceLifetime.Scoped:
+                    services.AddScoped<ICommandQueryLogging, T>();
                     break;
 
-                case CommandQueryLoggingType.Custom:
-                    break;
-            }
-        }
-
-        private static void RegisterCommandLogging(IServiceCollection services, HohArchitectureOptions options)
-        {
-            switch (options.CommandLogging.Type)
-            {
-                case CommandQueryLoggingType.None:
-                    services.AddScoped<IQueryCommandLogging, EmptyQueryCommandLogger>();
+                case ServiceLifetime.Transient:
+                    services.AddTransient<ICommandQueryLogging, T>();
                     break;
 
-                case CommandQueryLoggingType.BuiltInEfProvider:
-                    services.AddScoped<IQueryCommandLogging, EntityFrameworkQueryCommandLogger>();
-                    break;
-
-                case CommandQueryLoggingType.Custom:
-                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(lifetime), lifetime, null);
             }
         }
     }

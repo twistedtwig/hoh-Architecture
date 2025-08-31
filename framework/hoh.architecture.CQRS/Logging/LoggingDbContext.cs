@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using hoh.architecture.Shared.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace hoh.architecture.CQRS.Logging
 {
     public class LoggingDbContext : DbContext
     {
-        public LoggingDbContext(DbContextOptions<LoggingDbContext> options) : base(options)
+        private HohArchitectureOptions hohOptions;
+
+        public LoggingDbContext(DbContextOptions<LoggingDbContext> options, IOptions<HohArchitectureOptions> hohOptions) : base(options)
         {
-            
+            this.hohOptions = hohOptions.Value;
         }
-        /*
-         * todo hohoptions configure dbcontext, set the entity and table name
-         */
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<LoggingEntity>()
+                .ToTable(hohOptions.TableName)
+                .HasKey(x => x.Id);
+        }
     }
 }
