@@ -1,5 +1,6 @@
 ﻿using hoh.architecture.Shared.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Options;
 
 namespace hoh.architecture.CQRS.Logging
@@ -15,11 +16,22 @@ namespace hoh.architecture.CQRS.Logging
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new LoggingEntityConfiguration(hohOptions));
+        }
+    }
 
-            modelBuilder.Entity<LoggingEntity>()
-                .ToTable(hohOptions.TableName)
-                .HasKey(x => x.Id);
+    public class LoggingEntityConfiguration : IEntityTypeConfiguration<LoggingEntity>
+    {
+        private HohArchitectureOptions hohOptions { get; }
+        
+        public LoggingEntityConfiguration(HohArchitectureOptions hohOptions)
+        {
+            this.hohOptions = hohOptions;
+        }
+        public void Configure(EntityTypeBuilder<LoggingEntity> builder)
+        {
+            builder.ToTable(hohOptions.TableName);
+            builder.HasKey(x => x.Id);
         }
     }
 }
