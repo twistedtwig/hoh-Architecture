@@ -57,7 +57,8 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
                         Error = error,
                         ExecutionTime = startTime,
                         Success = success,
-                        TimeSpan = watch.Elapsed
+                        TimeSpan = watch.Elapsed,
+                        HandlerType = queryHandler.GetType(),
                     };
 
                     await _logging.LogQueryAsync(query, loggingResult);

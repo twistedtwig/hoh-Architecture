@@ -35,6 +35,8 @@ namespace HoH.Architecture.CQRS.Logging
                 Success = result.Success,
                 Error = error,
                 ItemJson = json,
+                HandlerType = result.HandlerType.FullName,
+                ItemType = typeof(T).FullName,
             });
 
             await DbContext.SaveChangesAsync();
