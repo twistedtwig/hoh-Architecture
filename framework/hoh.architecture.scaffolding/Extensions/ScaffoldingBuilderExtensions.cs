@@ -11,7 +11,12 @@ namespace hoh.architecture.scaffolding.Extensions
         {
             using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
             var dbContext = serviceScope.ServiceProvider.GetService<LoggingDbContext>();
-            dbContext?.Database.Migrate();
+            var dbCreated = dbContext?.Database.EnsureCreated();
+
+            if (dbCreated.HasValue && !dbCreated.Value)
+            {
+                dbContext?.Database.Migrate();
+            }
 
             //TODO any app setup should go here
             return app;
