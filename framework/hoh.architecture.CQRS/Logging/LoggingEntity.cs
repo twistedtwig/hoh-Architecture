@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace hoh.architecture.CQRS.Logging
+namespace HoH.Architecture.CQRS.Logging
 {
     public class LoggingEntity
     {

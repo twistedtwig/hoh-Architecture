@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text;
 
-namespace hoh.architecture.CQRS.Shared.Results;
+namespace HoH.Architecture.CQRS.Shared.Results;
 
 public class ExceptionalMessage : IExceptionalMessage
 {

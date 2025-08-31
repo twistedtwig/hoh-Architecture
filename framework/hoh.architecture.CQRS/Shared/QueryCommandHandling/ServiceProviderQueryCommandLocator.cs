@@ -1,9 +1,9 @@
-﻿using hoh.architecture.CQRS.Command;
-using hoh.architecture.CQRS.Query;
-using hoh.architecture.CQRS.Shared.Results;
+﻿using HoH.Architecture.CQRS.Command;
+using HoH.Architecture.CQRS.Query;
+using HoH.Architecture.CQRS.Shared.Results;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace hoh.architecture.CQRS.Shared.QueryCommandHandling
+namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
 {
     public class ServiceProviderQueryCommandLocator : IQueryCommandLocator
     {

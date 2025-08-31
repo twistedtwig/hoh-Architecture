@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace hoh.architecture.CQRS.Shared.Results
+namespace HoH.Architecture.CQRS.Shared.Results
 {
     public class QueryResult<T> : IQueryResult<T> where T : class
     {

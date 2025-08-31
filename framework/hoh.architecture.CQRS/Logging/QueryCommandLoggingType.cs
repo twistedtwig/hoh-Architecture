@@ -1,5 +1,5 @@
 ﻿
-namespace hoh.architecture.CQRS.Logging
+namespace HoH.Architecture.CQRS.Logging
 {
     public enum QueryCommandLoggingType
     {

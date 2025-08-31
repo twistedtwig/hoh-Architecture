@@ -1,10 +1,10 @@
-﻿using hoh.architecture.CQRS.Query;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using hoh.architecture.CQRS.Command;
+using HoH.Architecture.CQRS.Command;
+using HoH.Architecture.CQRS.Query;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace hoh.architecture.scaffolding.Extensions
+namespace HoH.Architecture.scaffolding.Extensions
 {
     internal static class AssemblyHelpers
     {

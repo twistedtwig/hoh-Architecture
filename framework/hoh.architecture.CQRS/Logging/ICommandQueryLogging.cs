@@ -1,7 +1,7 @@
-﻿using hoh.architecture.CQRS.Command;
-using hoh.architecture.CQRS.Query;
+﻿using HoH.Architecture.CQRS.Command;
+using HoH.Architecture.CQRS.Query;
 
-namespace hoh.architecture.CQRS.Logging
+namespace HoH.Architecture.CQRS.Logging
 {
     public interface ICommandQueryLogging
     {

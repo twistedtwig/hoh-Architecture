@@ -1,4 +1,4 @@
-﻿namespace hoh.architecture.CQRS.Command
+﻿namespace HoH.Architecture.CQRS.Command
 {
     public interface ICommand
     {

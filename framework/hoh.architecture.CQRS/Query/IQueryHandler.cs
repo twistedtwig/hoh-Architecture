@@ -1,7 +1,6 @@
-﻿
-using hoh.architecture.CQRS.Shared.Results;
+﻿using HoH.Architecture.CQRS.Shared.Results;
 
-namespace hoh.architecture.CQRS.Query
+namespace HoH.Architecture.CQRS.Query
 {
     public interface IQueryHandler<in TQ, TR> where TQ : IQuery where TR : class
     {

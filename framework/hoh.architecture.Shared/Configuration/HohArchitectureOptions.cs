@@ -1,9 +1,8 @@
-﻿namespace hoh.architecture.Shared.Configuration
+﻿namespace HoH.Architecture.Shared.Configuration
 {
     public class HohArchitectureOptions
     {
-        public string ConnectionString { get; set; }
-        public string TableName { get; set; }
+        public string CommandQueryLoggingConnectionString { get; set; }
 
         public bool EnableSensitiveDataLogging { get; set; }
 
@@ -12,8 +11,7 @@
         public static HohArchitectureOptions Default => new HohArchitectureOptions
         {
             UseServiceCollection = true,
-            ConnectionString = "connection string needed",
-            TableName = "CommandQueryExecutionLogs",
+            CommandQueryLoggingConnectionString = "connection string needed",
             EnableSensitiveDataLogging = false,
         };
     }

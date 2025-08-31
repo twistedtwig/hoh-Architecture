@@ -1,37 +1,21 @@
-﻿using hoh.architecture.Shared.Configuration;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace hoh.architecture.CQRS.Logging
+namespace HoH.Architecture.CQRS.Logging
 {
     public class LoggingDbContext : DbContext
     {
-        private HohArchitectureOptions hohOptions;
-
-        public LoggingDbContext(DbContextOptions<LoggingDbContext> options, IOptions<HohArchitectureOptions> hohOptions) : base(options)
+        public virtual string TableName => "CommandQueryExecutionLogs";
+        public LoggingDbContext(DbContextOptions<LoggingDbContext> options) : base(options)
         {
-            this.hohOptions = hohOptions.Value;
+            Console.WriteLine("loggind db context constructor");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new LoggingEntityConfiguration(hohOptions));
-        }
-    }
-
-    public class LoggingEntityConfiguration : IEntityTypeConfiguration<LoggingEntity>
-    {
-        private HohArchitectureOptions hohOptions { get; }
-        
-        public LoggingEntityConfiguration(HohArchitectureOptions hohOptions)
-        {
-            this.hohOptions = hohOptions;
-        }
-        public void Configure(EntityTypeBuilder<LoggingEntity> builder)
-        {
-            builder.ToTable(hohOptions.TableName);
-            builder.HasKey(x => x.Id);
+            Console.WriteLine($"loggind db context on model creating, {TableName}");
+            modelBuilder.Entity<LoggingEntity>()
+                .ToTable(TableName)
+                .HasKey(x => x.Id);
         }
     }
 }

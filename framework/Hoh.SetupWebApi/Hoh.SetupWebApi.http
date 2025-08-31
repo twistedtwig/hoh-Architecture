@@ -1,0 +1,6 @@
+@Hoh.SetupWebApi_HostAddress = http://localhost:5047
+
+GET {{Hoh.SetupWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

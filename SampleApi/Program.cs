@@ -15,7 +15,7 @@ builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSect
 
 builder.Services.AddHohArchitecture<EntityFrameworkCommandQueryLogger, LoggingDbContext>(x =>
 {
-    x.ConnectionString = @"Data Source=localhost;Initial Catalog=YourDatabase2; uid=oliveTreeUser;pwd=abc123def!;MultipleActiveResultSets=true; TrustServerCertificate=True;Trusted_Connection=True;";
+    x.ConnectionString = @"Data Source=localhost;Initial Catalog=YourDatabase2; uid=sa;pwd=123456;MultipleActiveResultSets=true; TrustServerCertificate=True;Trusted_Connection=True;";
     x.TableName = "LoggingQueryCommands";
 
     x.UseServiceCollection = true;

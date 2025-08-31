@@ -1,4 +1,4 @@
-﻿namespace hoh.architecture.CQRS.Shared.Results
+﻿namespace HoH.Architecture.CQRS.Shared.Results
 {
     public interface IResult
     {

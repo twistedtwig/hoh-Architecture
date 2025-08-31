@@ -1,4 +1,4 @@
-﻿namespace hoh.architecture.CQRS.Query
+﻿namespace HoH.Architecture.CQRS.Query
 {
     public interface IQuery
     {

@@ -1,12 +1,12 @@
-﻿using hoh.architecture.CQRS.Shared.QueryCommandHandling;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using hoh.architecture.CQRS.Logging;
-using hoh.architecture.Shared.Configuration;
+using HoH.Architecture.CQRS.Logging;
+using HoH.Architecture.CQRS.Shared.QueryCommandHandling;
+using HoH.Architecture.Shared.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace hoh.architecture.scaffolding.Extensions
+namespace HoH.Architecture.scaffolding.Extensions
 {
     public static class ScaffoldingServicesExtensions
     {
@@ -49,7 +49,7 @@ namespace hoh.architecture.scaffolding.Extensions
             services.AddDbContext<TDb>((sp, builder) =>
             {
                 var hohOptions = sp.GetRequiredService<IOptions<HohArchitectureOptions>>();
-                builder.UseSqlServer(hohOptions.Value.ConnectionString);
+                builder.UseSqlServer(hohOptions.Value.CommandQueryLoggingConnectionString);
                 builder.EnableSensitiveDataLogging(hohOptions.Value.EnableSensitiveDataLogging);
             });
 
@@ -77,16 +77,6 @@ namespace hoh.architecture.scaffolding.Extensions
                 }
 
                 hohOptions.UseServiceCollection ??= options.UseServiceCollection;
-
-                if (string.IsNullOrWhiteSpace(hohOptions.TableName))
-                {
-                    hohOptions.TableName = options.TableName;
-                }
-
-                if (string.IsNullOrWhiteSpace(hohOptions.ConnectionString))
-                {
-                    hohOptions.ConnectionString = options.ConnectionString;
-                }
             });
 
             if (options.UseServiceCollection.HasValue && options.UseServiceCollection.Value)
