@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HoH.Architecture.CQRS.Logging
+﻿namespace HoH.Architecture.CQRS.Logging
 {
     public class LoggingEntity
     {
         public long Id { get; set; }
+
+        public QueryCommandLoggingType Type { get; set; }
         public DateTime ExecutionTime { get; set; }
 
-        //TODO add other bits
+        public TimeSpan TimeSpan { get; set; }
+
+        public bool Success { get; set; }
+
+        public string ItemJson { get; set; }
+
+        public string Error { get; set; }
     }
 }

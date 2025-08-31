@@ -38,7 +38,7 @@ There are various options that can be set at the top level via configuration.  T
 ```
 builder.Services.AddHohArchitecture(x =>
 {
-    x.ConnectionString = "con1";
+    x.CommandQueryLoggingConnectionString = "con1";
 });
 ```
 Or using appsettings.json
@@ -53,8 +53,6 @@ The order in which configuration is applied is:
 2) bindings, such as:
     a) Get section `builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSection("RootConfig"));`
     b) IConfigurationSource `builder.Configuration.Sources.Add(new InMemoryTestCustomConfigurationSource());`
-
-[CommandQueryLoggingType.cs](framework/hoh.architecture.scaffolding/Configuration/HohArchitectureOptions.cs)
 
 See SampleAPI => QueryController for an example of executing a query.  It follows this convention
 1. use IServiceProvider to get an instance of the IQueryExecutor.
@@ -231,8 +229,9 @@ namespace SampleApi.Controllers
  ```
 builder.Services.AddHohArchitecture<EntityFrameworkCommandQueryLogger, LoggingDbContext>(x =>
 {
-    x.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=YourDatabase";
-    x.TableName = "LoggingQueryCommands";
+    x.CommandQueryLoggingType = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=YourDatabase";
     x.UseServiceCollection = true;
 });
  ```
+
+ If you need a different table name for the logging, you can override `LoggingDbContext`.`TableName`
