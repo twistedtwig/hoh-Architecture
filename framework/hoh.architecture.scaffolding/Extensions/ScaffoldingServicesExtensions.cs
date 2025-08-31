@@ -91,7 +91,7 @@ namespace hoh.architecture.scaffolding.Extensions
 
             if (options.UseServiceCollection.HasValue && options.UseServiceCollection.Value)
             {
-                services.AddScoped<IQueryCommandExecutor, QueryCommandExecutor>();
+                services.AddScoped<IQueryCommandExecutor, CommandQueryExecutor>();
                 services.AddScoped<IQueryCommandLocator, ServiceProviderQueryCommandLocator>();
             }
 

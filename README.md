@@ -229,7 +229,7 @@ namespace SampleApi.Controllers
  ```
 builder.Services.AddHohArchitecture<EntityFrameworkCommandQueryLogger, LoggingDbContext>(x =>
 {
-    x.ConnectionString = "con1";
+    x.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=YourDatabase";
     x.TableName = "LoggingQueryCommands";
     x.UseServiceCollection = true;
 });

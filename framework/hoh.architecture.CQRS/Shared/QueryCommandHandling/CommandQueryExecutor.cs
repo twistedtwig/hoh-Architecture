@@ -5,12 +5,12 @@ using hoh.architecture.CQRS.Shared.Results;
 
 namespace hoh.architecture.CQRS.Shared.QueryCommandHandling
 {
-    public class QueryCommandExecutor : IQueryCommandExecutor
+    public class CommandQueryExecutor : IQueryCommandExecutor
     {
         private readonly IQueryCommandLocator _queryCommandLocator;
         private readonly ICommandQueryLogging _logging;
 
-        public QueryCommandExecutor(IQueryCommandLocator queryCommandLocator, ICommandQueryLogging logging)
+        public CommandQueryExecutor(IQueryCommandLocator queryCommandLocator, ICommandQueryLogging logging)
         {
             _queryCommandLocator = queryCommandLocator;
             _logging = logging;
@@ -50,15 +50,18 @@ namespace hoh.architecture.CQRS.Shared.QueryCommandHandling
             {
                 watch.Stop();
 
-                var loggingResult = new QueryCommandLoggingResult
+                if (_logging != null)
                 {
-                    Error = error,
-                    ExecutionTime = startTime,
-                    Success = success,
-                    TimeSpan = watch.Elapsed
-                };
+                    var loggingResult = new QueryCommandLoggingResult
+                    {
+                        Error = error,
+                        ExecutionTime = startTime,
+                        Success = success,
+                        TimeSpan = watch.Elapsed
+                    };
 
-                await _logging.LogQueryAsync(query, loggingResult);
+                    await _logging.LogQueryAsync(query, loggingResult);
+                }
             }
 
             return result;

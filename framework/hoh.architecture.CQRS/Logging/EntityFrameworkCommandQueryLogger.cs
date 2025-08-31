@@ -1,21 +1,27 @@
 ﻿using hoh.architecture.CQRS.Command;
 using hoh.architecture.CQRS.Query;
-using hoh.architecture.Shared.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace hoh.architecture.CQRS.Logging
 {
     public class EntityFrameworkCommandQueryLogger : ICommandQueryLogging
     {
-        private readonly IOptions<HohArchitectureOptions> _hohOptions;
-        public EntityFrameworkCommandQueryLogger(IOptions<HohArchitectureOptions> options)
+        private LoggingDbContext DbContext { get; }
+        public EntityFrameworkCommandQueryLogger(LoggingDbContext dbContext)
         {
-            _hohOptions = options;
+            DbContext = dbContext;
         }
 
-        public Task LogQueryAsync<T>(T query, QueryCommandLoggingResult result) where T : IQuery
+        public async Task LogQueryAsync<T>(T query, QueryCommandLoggingResult result) where T : IQuery
         {
-            throw new NotImplementedException();
+            await using var transaction = await DbContext.Database.BeginTransactionAsync();
+
+            DbContext.Set<LoggingEntity>().Add(new LoggingEntity
+            {
+                ExecutionTime = result.ExecutionTime,
+            });
+
+            await DbContext.SaveChangesAsync();
+            await transaction.CommitAsync();
         }
 
         public Task LogCommandAsync<T>(T command, QueryCommandLoggingResult result) where T : ICommand

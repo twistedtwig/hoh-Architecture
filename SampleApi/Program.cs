@@ -1,7 +1,6 @@
 using hoh.architecture.CQRS.Logging;
 using hoh.architecture.scaffolding.Extensions;
 using hoh.architecture.Shared.Configuration;
-using Microsoft.EntityFrameworkCore;
 using SampleApi.CustomConfigurationProvider;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,21 +13,12 @@ builder.Services.AddSwaggerGen();
 builder.Configuration.Sources.Add(new InMemoryTestCustomConfigurationSource());
 builder.Services.Configure<HohArchitectureOptions>(builder.Configuration.GetSection("RootConfig"));
 
-builder.Services.AddHohArchitecture<LoggingDbContext>(x =>
+builder.Services.AddHohArchitecture<EntityFrameworkCommandQueryLogger, LoggingDbContext>(x =>
 {
-    x.ConnectionString = "con1";
-    x.CommandLogging.TableName = "LoggingQueryCommands";
-    x.CommandLogging.Type = CommandQueryLoggingType.None;
-
-    x.QueryLogging.TableName = "new table name";
-    x.QueryLogging.Type = CommandQueryLoggingType.None;
+    x.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=YourDatabase";
+    x.TableName = "LoggingQueryCommands";
 
     x.UseServiceCollection = true;
-}, dbOptions =>
-{
-    dbOptions
-        .UseSqlServer("con1")
-        .EnableSensitiveDataLogging(true);
 });
 
 // Add services to the container.
