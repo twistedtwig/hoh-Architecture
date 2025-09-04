@@ -6,10 +6,10 @@ namespace HoH.Architecture.scaffolding.Extensions
 {
     public static class EntityFrameWorkExtensions
     {
-        public static void CreateDatabaseRunMigrations<TDB>(this IApplicationBuilder app) where TDB : DbContext
+        public static void CreateDatabaseRunMigrations<TDb>(this IApplicationBuilder app) where TDb : DbContext
         {
             using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
-            var dbContext = serviceScope.ServiceProvider.GetService<TDB>();
+            var dbContext = serviceScope.ServiceProvider.GetService<TDb>();
             var dbCreated = dbContext?.Database.EnsureCreated();
 
             dbContext.Database.GetPendingMigrations();

@@ -30,6 +30,8 @@ builder.Services.AddDbContext<ExampleDbContext>(x => x.UseSqlServer(@"Data Sourc
 
 var app = builder.Build();
 
+app.CreateDatabaseRunMigrations<ExampleDbContext>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

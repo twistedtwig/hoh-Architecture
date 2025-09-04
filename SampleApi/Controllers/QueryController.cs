@@ -70,7 +70,7 @@ namespace SampleApi.Controllers
         {
             var query = new TestQuery("This is my message4");
 
-            var queryResult = await _executor.ExecuteAsync<TestQuery, TestQueryResult>(query);
+            var queryResult = await _executor.ExecuteQueryAsync<TestQuery, TestQueryResult>(query);
 
             return queryResult;
         }
@@ -79,7 +79,7 @@ namespace SampleApi.Controllers
         [Route("math")]
         public async Task<IQueryResult<TestMathQueryResult>> GetMathQuery(TestMathQuery query)
         {
-            var queryResult = await _executor.ExecuteAsync<TestMathQuery, TestMathQueryResult>(query);
+            var queryResult = await _executor.ExecuteQueryAsync<TestMathQuery, TestMathQueryResult>(query);
             return queryResult;
         }
     }
