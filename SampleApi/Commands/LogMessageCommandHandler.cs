@@ -5,7 +5,7 @@ namespace SampleApi.Commands
 {
     public class LogMessageCommandHandler : ICommandHandler<LogMessageCommand, CommandResult>
     {
-        private ExampleDbContext _exampleDbContext;
+        private readonly ExampleDbContext _exampleDbContext;
         public LogMessageCommandHandler(ExampleDbContext exampleDbContext)
         {
             _exampleDbContext = exampleDbContext;
@@ -16,7 +16,7 @@ namespace SampleApi.Commands
             await _exampleDbContext.Set<Message>().AddAsync(new Message {Text = command.Message, When = DateTime.Now});
             await _exampleDbContext.SaveChangesAsync();
 
-            return new CommandResult(true, null);
+            return new CommandResult(true);
         }
     }
 }
