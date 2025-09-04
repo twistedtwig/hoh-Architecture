@@ -2,6 +2,8 @@
 {
     public class CommandResult : ICommandResult
     {
+        public CommandResult(bool success) : this(success, new List<IMessage>()) { }
+
         public CommandResult(bool success, IReadOnlyList<IMessage> messages)
         {
             Success = success;
@@ -13,6 +15,8 @@
 
     public class CommandResultWithIntId : CommandResult, ICommandResultWithIntId
     {
+        public CommandResultWithIntId(bool success) : this(success, new List<IMessage>()) { }
+
         public CommandResultWithIntId(bool success, IReadOnlyList<IMessage> messages) : base(success, messages)
         {
         }
@@ -27,6 +31,8 @@
 
     public class CommandResultWithLongId : CommandResult, ICommandResultWithLongId
     {
+        public CommandResultWithLongId(bool success) : this(success, new List<IMessage>()) { }
+
         public CommandResultWithLongId(bool success, IReadOnlyList<IMessage> messages) : base(success, messages)
         {
         }

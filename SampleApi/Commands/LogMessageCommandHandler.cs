@@ -16,7 +16,7 @@ namespace SampleApi.Commands
             await _exampleDbContext.Set<Message>().AddAsync(new Message {Text = command.Message, When = DateTime.Now});
             await _exampleDbContext.SaveChangesAsync();
 
-            return new CommandResult();
+            return new CommandResult(true, null);
         }
     }
 }

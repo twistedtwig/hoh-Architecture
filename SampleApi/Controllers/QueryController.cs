@@ -7,7 +7,7 @@ using SampleApi.Queries;
 namespace SampleApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("Querys")]
     public class QueryController : ControllerBase
     {
         private readonly IServiceProvider _serviceProvider;
