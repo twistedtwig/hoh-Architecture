@@ -16,7 +16,7 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
             _logging = logging;
         }
 
-        public async Task<IQueryResult<TR>> ExecuteAsync<TQ, TR>(TQ query) where TQ : IQuery where TR : class
+        public async Task<IQueryResult<TR>> ExecuteQueryAsync<TQ, TR>(TQ query) where TQ : IQuery where TR : class
         {
             var startTime = DateTime.Now.ToUniversalTime();
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -68,9 +68,56 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
             return result;
         }
 
-        public Task<ICommandResult> ExecuteAsync<TC>(TC command) where TC : ICommand
+        public async Task<TR> ExecuteCommandAsync<TC, TR>(TC command) where TC : ICommand where TR : ICommandResult
         {
-            throw new NotImplementedException();
+            var startTime = DateTime.Now.ToUniversalTime();
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
+            if (command == null)
+            {
+                throw new ArgumentNullException(nameof(command));
+            }
+
+            var commandHandler = await _queryCommandLocator.LocateCommandHandlerAsync<TC, TR>();
+            if (commandHandler == null)
+            {
+                throw new ArgumentNullException(nameof(commandHandler));
+            }
+
+            var error = string.Empty;
+            var success = true;
+            TR result;
+            try
+            {
+                result = await commandHandler.ExecuteAsync(command);
+
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                success = false;
+                throw;
+            }
+            finally
+            {
+                watch.Stop();
+
+                if (_logging != null)
+                {
+                    var loggingResult = new QueryCommandLoggingResult
+                    {
+                        Error = error,
+                        ExecutionTime = startTime,
+                        Success = success,
+                        TimeSpan = watch.Elapsed,
+                        HandlerType = commandHandler.GetType(),
+                    };
+
+                    await _logging.LogCommandAsync(command, loggingResult);
+                }
+            }
+
+            return result;
         }
     }
 }

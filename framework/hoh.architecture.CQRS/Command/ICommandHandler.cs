@@ -1,5 +1,4 @@
-﻿using HoH.Architecture.CQRS.Query;
-using HoH.Architecture.CQRS.Shared.Results;
+﻿using HoH.Architecture.CQRS.Shared.Results;
 
 namespace HoH.Architecture.CQRS.Command
 {

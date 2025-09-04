@@ -20,7 +20,7 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
             return Task.FromResult(handler);
         }
 
-        public Task<ICommandHandler<TC, TR>> LocateCommandHandlerAsync<TC, TR>(TC command) where TC : ICommand where TR : ICommandResult
+        public Task<ICommandHandler<TC, TR>> LocateCommandHandlerAsync<TC, TR>() where TC : ICommand where TR : ICommandResult
         {
             var handler = _serviceProvider.GetRequiredService<ICommandHandler<TC, TR>>();
             return Task.FromResult(handler);

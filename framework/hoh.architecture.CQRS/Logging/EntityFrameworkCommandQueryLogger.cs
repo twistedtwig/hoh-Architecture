@@ -1,6 +1,6 @@
-﻿using System.Text.Json;
-using HoH.Architecture.CQRS.Command;
+﻿using HoH.Architecture.CQRS.Command;
 using HoH.Architecture.CQRS.Query;
+using System.Text.Json;
 
 namespace HoH.Architecture.CQRS.Logging
 {
@@ -14,22 +14,33 @@ namespace HoH.Architecture.CQRS.Logging
 
         public async Task LogQueryAsync<T>(T query, QueryCommandLoggingResult result) where T : IQuery
         {
+            await LogDataAsync(query, result, QueryCommandLoggingType.Query);
+
+        }
+
+        public async Task LogCommandAsync<T>(T command, QueryCommandLoggingResult result) where T : ICommand
+        {
+            await LogDataAsync(command, result, QueryCommandLoggingType.Command);
+        }
+
+        private async Task LogDataAsync<T>(T item, QueryCommandLoggingResult result, QueryCommandLoggingType type)
+        {
             await using var transaction = await DbContext.Database.BeginTransactionAsync();
 
             var json = string.Empty;
             var error = result.Error;
             try
             {
-                json = JsonSerializer.Serialize(query);
+                json = JsonSerializer.Serialize(item);
             }
             catch (Exception e)
             {
-                error += $" Unable to serialize Query {typeof(T).Name}, {e.Message}";
+                error += $" Unable to serialize item {typeof(T).Name}, {e.Message}";
             }
 
             DbContext.Set<LoggingEntity>().Add(new LoggingEntity
             {
-                Type = QueryCommandLoggingType.Query,
+                Type = type,
                 ExecutionTime = result.ExecutionTime,
                 TimeSpan = result.TimeSpan,
                 Success = result.Success,
@@ -41,11 +52,6 @@ namespace HoH.Architecture.CQRS.Logging
 
             await DbContext.SaveChangesAsync();
             await transaction.CommitAsync();
-        }
-
-        public Task LogCommandAsync<T>(T command, QueryCommandLoggingResult result) where T : ICommand
-        {
-            throw new NotImplementedException();
         }
     }
 }

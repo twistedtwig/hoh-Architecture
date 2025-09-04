@@ -1,10 +1,9 @@
 # ROADMAP
 
- - Query Executor. 
+ - Command Executor. 
      - logging
      - execution time
      - save query and time 
- - add logging
  - statistics
  - background jobs
  - metadata logging. Allows systems to add data, such as user and place of caller
