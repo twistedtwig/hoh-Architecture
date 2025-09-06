@@ -1,5 +1,8 @@
 # ROADMAP
 
+ - exception logging and handling - if query or command handler throws, do what? 
+    - record error in logging
+    - have optional IExceptionHandler, return if should swallow exception, result object etc
  - metadata logging. Allows systems to add data, such as user and place of caller
  - statistics
  - background jobs
@@ -230,3 +233,10 @@ builder.Services.AddHohArchitecture<EntityFrameworkCommandQueryLogger, LoggingDb
  ```
 
  If you need a different table name for the logging, you can override `LoggingDbContext`.`TableName`
+
+ ## Exception handling
+
+ If you want to either know about exceptions or have some control on the flow when one occurs, implement `IExceptionHandler` and register in DI. Allows you to:
+
+  - Log / process the exception then allow the code to continue as before
+  - Swallow the exception and return the override provided.

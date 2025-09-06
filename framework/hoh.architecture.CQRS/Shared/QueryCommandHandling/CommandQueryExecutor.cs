@@ -9,10 +9,18 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
     public class CommandQueryExecutor : IQueryCommandExecutor
     {
         private readonly IQueryCommandLocator _queryCommandLocator;
-        private readonly ICommandQueryLogging _logging;
-        private readonly IExceptionHandler _exceptionHandler;
+        private readonly ICommandQueryLogging? _logging;
+        private readonly IExceptionHandler? _exceptionHandler;
 
-        public CommandQueryExecutor(IQueryCommandLocator queryCommandLocator, ICommandQueryLogging logging, IExceptionHandler exceptionHandler)
+        public CommandQueryExecutor(IQueryCommandLocator queryCommandLocator) : this(queryCommandLocator, null, null)
+        {
+        }
+
+        public CommandQueryExecutor(IQueryCommandLocator queryCommandLocator, ICommandQueryLogging? logging = null) : this(queryCommandLocator, logging, null)
+        {
+        }
+
+        public CommandQueryExecutor(IQueryCommandLocator queryCommandLocator, ICommandQueryLogging? logging = null, IExceptionHandler? exceptionHandler = null)
         {
             _queryCommandLocator = queryCommandLocator;
             _logging = logging;
