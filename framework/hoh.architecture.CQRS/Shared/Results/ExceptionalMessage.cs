@@ -29,14 +29,19 @@ public class ExceptionalMessage : IExceptionalMessage
     {
         get
         {
-            //TODO handle nulls
             var builder = new StringBuilder();
             foreach (var error in Errors)
             {
-                builder.AppendLine(error);
+                if (!string.IsNullOrWhiteSpace(error))
+                {
+                    builder.AppendLine(error);
+                }
             }
 
-            builder.AppendLine(StackTrace);
+            if (!string.IsNullOrWhiteSpace(StackTrace))
+            {
+                builder.AppendLine(StackTrace);
+            }
 
             return builder.ToString();
         }

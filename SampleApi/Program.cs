@@ -1,9 +1,11 @@
+using HoH.Architecture.CQRS.ExceptionHandling;
 using HoH.Architecture.CQRS.Logging;
 using HoH.Architecture.scaffolding.Extensions;
 using HoH.Architecture.Shared.Configuration;
 using Microsoft.EntityFrameworkCore;
 using SampleApi.Commands;
 using SampleApi.CustomConfigurationProvider;
+using SampleApi.ExceptionLogging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,8 @@ builder.Services.AddHohArchitecture<EntityFrameworkCommandQueryLogger, LoggingDb
 // Add services to the container.
 builder.Services.RegisterQueryHandlers(ServiceLifetime.Scoped, typeof(Program).Assembly);
 builder.Services.RegisterCommandHandlers(ServiceLifetime.Scoped, typeof(Program).Assembly);
+
+builder.Services.AddScoped<IExceptionHandler, TestExceptionHandler>();
 
 builder.Services.AddDbContext<ExampleDbContext>(x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=ExampleDb; uid=sa;pwd=123456;MultipleActiveResultSets=true; TrustServerCertificate=True;Trusted_Connection=True;"));
 
