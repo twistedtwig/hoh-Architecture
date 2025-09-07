@@ -18,10 +18,10 @@ public class CommandController : ControllerBase
 
     [HttpPost]
     [Route("message")]
-    public async Task<CommandResult> AddMessage(string message)
+    public async Task<ICommandResult> AddMessage(string message)
     {
         var command = new LogMessageCommand(message);
-        var result = await _executor.ExecuteCommandAsync<LogMessageCommand, CommandResult>(command);
+        var result = await _executor.ExecuteCommandAsync<LogMessageCommand>(command);
         return result;
     }
 }

@@ -1,18 +1,3 @@
-# ROADMAP
-
- - exception logging and handling - if query or command handler throws, do what? 
-    - record error in logging
-    - have optional IExceptionHandler, return if should swallow exception, result object etc
- - metadata logging. Allows systems to add data, such as user and place of caller
- - statistics
- - background jobs
-
-
-
-
-
-
-
 # hoh-Architecture
 
 This project is designed to provide a collection of nuget packages to streamline project development using CQRS, EF Core and some DDD principles.

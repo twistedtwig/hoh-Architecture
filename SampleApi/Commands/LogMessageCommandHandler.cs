@@ -3,7 +3,7 @@ using HoH.Architecture.CQRS.Shared.Results;
 
 namespace SampleApi.Commands
 {
-    public class LogMessageCommandHandler : ICommandHandler<LogMessageCommand, CommandResult>
+    public class LogMessageCommandHandler : ICommandHandler<LogMessageCommand>
     {
         private readonly ExampleDbContext _exampleDbContext;
         public LogMessageCommandHandler(ExampleDbContext exampleDbContext)
@@ -11,7 +11,7 @@ namespace SampleApi.Commands
             _exampleDbContext = exampleDbContext;
         }
 
-        public async Task<CommandResult> ExecuteAsync(LogMessageCommand command)
+        public async Task<ICommandResult> ExecuteAsync(LogMessageCommand command)
         {
             await _exampleDbContext.Set<Message>().AddAsync(new Message {Text = command.Message, When = DateTime.Now});
             await _exampleDbContext.SaveChangesAsync();
