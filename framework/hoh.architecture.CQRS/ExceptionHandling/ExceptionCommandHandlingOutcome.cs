@@ -2,9 +2,9 @@
 
 namespace HoH.Architecture.CQRS.ExceptionHandling;
 
-public class ExceptionCommandHandlingOutcome<T> : IExceptionCommandHandlingOutcome<T> where T : ICommandResult
+public class ExceptionCommandHandlingOutcome : IExceptionCommandHandlingOutcome
 {
     public bool AllowExceptionToBubbleUp { get; set; }
 
-    public T ResultOverride { get; set; }
+    public ICommandResult? ResultOverride { get; set; }
 }

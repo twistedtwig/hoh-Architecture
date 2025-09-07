@@ -7,6 +7,6 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
     public interface IQueryCommandExecutor
     {
         Task<IQueryResult<TR>> ExecuteQueryAsync<TQ, TR>(TQ query) where TQ : IQuery where TR : class;
-        Task<TR> ExecuteCommandAsync<TC, TR>(TC command) where TC : ICommand where TR : ICommandResult;
+        Task<ICommandResult> ExecuteCommandAsync<TC>(TC command) where TC : ICommand;
     }
 }

@@ -1,6 +1,5 @@
 ﻿using HoH.Architecture.CQRS.Command;
 using HoH.Architecture.CQRS.Query;
-using HoH.Architecture.CQRS.Shared.Results;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
@@ -20,9 +19,9 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
             return Task.FromResult(handler);
         }
 
-        public Task<ICommandHandler<TC, TR>> LocateCommandHandlerAsync<TC, TR>() where TC : ICommand where TR : ICommandResult
+        public Task<ICommandHandler<TC>> LocateCommandHandlerAsync<TC>() where TC : ICommand
         {
-            var handler = _serviceProvider.GetRequiredService<ICommandHandler<TC, TR>>();
+            var handler = _serviceProvider.GetRequiredService<ICommandHandler<TC>>();
             return Task.FromResult(handler);
         }
     }

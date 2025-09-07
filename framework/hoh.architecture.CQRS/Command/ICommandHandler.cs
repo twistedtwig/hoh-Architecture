@@ -2,8 +2,8 @@
 
 namespace HoH.Architecture.CQRS.Command
 {
-    public interface ICommandHandler<in TC, TR> where TC : ICommand where TR : ICommandResult
+    public interface ICommandHandler<in TC> where TC : ICommand
     {
-        Task<TR> ExecuteAsync(TC command);
+        Task<ICommandResult> ExecuteAsync(TC command);
     }
 }

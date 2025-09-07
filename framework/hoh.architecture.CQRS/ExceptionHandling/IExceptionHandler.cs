@@ -1,6 +1,5 @@
 ﻿using HoH.Architecture.CQRS.Command;
 using HoH.Architecture.CQRS.Query;
-using HoH.Architecture.CQRS.Shared.Results;
 
 namespace HoH.Architecture.CQRS.ExceptionHandling
 {
@@ -20,6 +19,6 @@ namespace HoH.Architecture.CQRS.ExceptionHandling
         /// <param name="ex"></param>
         /// <param name="command"></param>
         /// <returns></returns>
-        Task<IExceptionCommandHandlingOutcome<TR>?> HandleCommandExecutionExceptionAsync<TC, TR>(Exception ex, TC command) where TC : ICommand where TR : ICommandResult;
+        Task<IExceptionCommandHandlingOutcome?> HandleCommandExecutionExceptionAsync<TC>(Exception ex, TC command) where TC : ICommand;
     }
 }

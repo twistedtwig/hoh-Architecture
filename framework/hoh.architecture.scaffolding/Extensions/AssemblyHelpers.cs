@@ -15,7 +15,7 @@ namespace HoH.Architecture.scaffolding.Extensions
 
         internal static void RegisterCommandHandlers(IServiceCollection serviceCollection, ServiceLifetime lifetime, params Assembly[] assemblies)
         {
-            Register(serviceCollection, typeof(ICommandHandler<,>), lifetime, assemblies);
+            Register(serviceCollection, typeof(ICommandHandler<>), lifetime, assemblies);
         }
 
         private static void Register(IServiceCollection serviceCollection, Type baseInterface, ServiceLifetime lifetime = ServiceLifetime.Scoped, params Assembly[] assemblies)

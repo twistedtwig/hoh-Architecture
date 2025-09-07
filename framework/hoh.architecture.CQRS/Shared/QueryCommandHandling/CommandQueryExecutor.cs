@@ -103,14 +103,14 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
             return result;
         }
 
-        public async Task<TR> ExecuteCommandAsync<TC, TR>(TC command) where TC : ICommand where TR : ICommandResult
+        public async Task<ICommandResult> ExecuteCommandAsync<TC>(TC command) where TC : ICommand
         {
             var startTime = DateTime.Now.ToUniversalTime();
             var watch = System.Diagnostics.Stopwatch.StartNew();
             var error = string.Empty;
             var success = true;
             Type commandHandlerType = null;
-            TR result;
+            ICommandResult result;
 
             try
             {
@@ -119,7 +119,7 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
                     throw new ArgumentNullException(nameof(command));
                 }
 
-                var commandHandler = await _queryCommandLocator.LocateCommandHandlerAsync<TC, TR>();
+                var commandHandler = await _queryCommandLocator.LocateCommandHandlerAsync<TC>();
                 if (commandHandler == null)
                 {
                     throw new ArgumentNullException(nameof(commandHandler));
@@ -135,7 +135,7 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
                     throw;
                 }
 
-                var dto = await _exceptionHandler.HandleCommandExecutionExceptionAsync<TC, TR>(ex, command);
+                var dto = await _exceptionHandler.HandleCommandExecutionExceptionAsync<TC>(ex, command);
                 if (dto != null)
                 {
                     if (dto.AllowExceptionToBubbleUp)
@@ -143,7 +143,7 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
                         throw;
                     }
 
-                    result = dto.ResultOverride;
+                    result = dto.ResultOverride ?? new CommandResult(false, new ExceptionalMessage(ex));
                 }
                 else
                 {
