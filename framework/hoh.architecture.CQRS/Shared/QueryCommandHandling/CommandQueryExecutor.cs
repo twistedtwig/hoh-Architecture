@@ -32,7 +32,6 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
             var startTime = DateTime.Now.ToUniversalTime();
             var watch = System.Diagnostics.Stopwatch.StartNew();
             var error = string.Empty;
-            var success = true;
             Type queryHandlerType = null;
             IQueryResult<TR> result = null;
 
@@ -91,7 +90,7 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
                     {
                         Error = error,
                         ExecutionTime = startTime,
-                        Success = success,
+                        Success = result?.Success ?? false,
                         TimeSpan = watch.Elapsed,
                         HandlerType = queryHandlerType,
                     };
@@ -108,9 +107,8 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
             var startTime = DateTime.Now.ToUniversalTime();
             var watch = System.Diagnostics.Stopwatch.StartNew();
             var error = string.Empty;
-            var success = true;
             Type commandHandlerType = null;
-            ICommandResult result;
+            ICommandResult? result = null;
 
             try
             {
@@ -160,7 +158,7 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
                     {
                         Error = error,
                         ExecutionTime = startTime,
-                        Success = success,
+                        Success = result?.Success ?? false,
                         TimeSpan = watch.Elapsed,
                         HandlerType = commandHandlerType.GetType(),
                     };
