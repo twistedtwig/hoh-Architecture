@@ -4,6 +4,6 @@ namespace HoH.Architecture.CQRS.Query
 {
     public interface IQueryHandler<in TQ, TR> where TQ : IQuery where TR : class
     {
-        Task<IQueryResult<TR>> ExecuteAsync(TQ query);
+        Task<IQueryResult<TR>> ExecuteAsync(TQ query, CancellationToken cancellationToken);
     }
 }

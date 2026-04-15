@@ -54,7 +54,7 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
                 }
 
                 queryHandlerType = queryHandler.GetType();
-                result = await queryHandler.ExecuteAsync(query);
+                result = await queryHandler.ExecuteAsync(query, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -134,7 +134,7 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
                 }
 
                 commandHandlerType = commandHandler.GetType();
-                result = await commandHandler.ExecuteAsync(command);
+                result = await commandHandler.ExecuteAsync(command, cancellationToken);
             }
             catch (Exception ex)
             {
