@@ -27,12 +27,7 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
             _exceptionHandler = exceptionHandler;
         }
 
-        public async Task<IQueryResult<TR>> ExecuteQueryAsync<TQ, TR>(TQ query) where TQ : IQuery where TR : class
-        {
-            return await ExecuteQueryAsync<TQ, TR>(query, CancellationToken.None);
-        }
-
-        public async Task<IQueryResult<TR>> ExecuteQueryAsync<TQ, TR>(TQ query, CancellationToken cancellationToken) where TQ : IQuery where TR : class
+        public async Task<IQueryResult<TR>> ExecuteQueryAsync<TQ, TR>(TQ query, CancellationToken cancellationToken = default) where TQ : IQuery where TR : class
         {
             var startTime = DateTime.Now.ToUniversalTime();
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -107,12 +102,7 @@ namespace HoH.Architecture.CQRS.Shared.QueryCommandHandling
             return result;
         }
 
-        public async Task<ICommandResult> ExecuteCommandAsync<TC>(TC command) where TC : ICommand
-        {
-            return await ExecuteCommandAsync<TC>(command, CancellationToken.None);
-        }
-
-        public async Task<ICommandResult> ExecuteCommandAsync<TC>(TC command, CancellationToken cancellationToken) where TC : ICommand
+        public async Task<ICommandResult> ExecuteCommandAsync<TC>(TC command, CancellationToken cancellationToken = default) where TC : ICommand
         {
             var startTime = DateTime.Now.ToUniversalTime();
             var watch = System.Diagnostics.Stopwatch.StartNew();
